@@ -1,0 +1,5 @@
+<h1 class="title"
+  [innerText]="'pet-details.title' | translate"></h1>
+<h3>{{pet?.name}}</h3>
+<h5>{{pet?.description}}</h5>
+<img [src]="pet?.media.getFirstImage(3)" />

@@ -1,0 +1,25 @@
+{
+    "menu": {
+        "home": "Home",
+        "pet-search": "Search Pets",
+        "shelter-search": "Search Shelters"
+    },
+    "login": {
+        "title": "Login"
+    },
+    "home": {
+        "title": "Home"
+    },
+    "pet-search": {
+        "title": "Pet Search"
+    },
+    "shelter-search": {
+        "title": "Shelter Search"
+    },
+    "pet-details": {
+        "title": "Pet Details"
+    },
+    "shelter-details": {
+        "title": "Shelter Details"
+    }
+}

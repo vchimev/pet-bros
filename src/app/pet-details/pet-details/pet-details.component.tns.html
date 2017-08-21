@@ -1,0 +1,9 @@
+<ActionBar [title]="pet?.name" class="action-bar">
+</ActionBar>
+<ScrollView>
+  <StackLayout>
+    <Label [text]="pet?.name"></Label>
+    <Image [src]="pet?.media.getFirstImage(3)" stretch="aspectFill"></Image>
+     <Label [text]="pet?.description" class="h4" textWrap="true"></Label> 
+  </StackLayout>
+</ScrollView>

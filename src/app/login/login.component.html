@@ -1,0 +1,35 @@
+<h1 class="title"
+  [innerText]="'login.title' | translate"></h1>
+
+
+ <form #loginForm="ngForm"> 
+  <label>Email:</label>
+  <input 
+    #emailModel="ngModel"
+    name="email"
+    [(ngModel)]="email"
+    type="email"
+    required email>
+  <br />
+
+  <label>Password:</label>
+  <input 
+    #passwordModel="ngModel"
+    name="password"
+    [(ngModel)]="password"
+    type="password"
+    required>
+  <br />
+
+  <button
+    [disabled]="loginForm.invalid"
+    (click)="login(loginForm.valid)"
+    type="submit">Login
+  </button>
+
+  <button 
+    [disabled]="loginForm.invalid"
+    (click)="register(loginForm.valid)"
+    type="submit">Register
+  </button>
+ </form> 
