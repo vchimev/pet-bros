@@ -21,6 +21,23 @@
     required>
   <br />
 
+  <label>Name:</label>
+  <input 
+    #emailModel="ngModel"
+    name="displayName"
+    [(ngModel)]="displayName"
+    type="name"
+    required>
+  <br />
+
+  <label>Default Search Location (US address):</label>
+  <input 
+    #passwordModel="ngModel"
+    name="defaultLocation"
+    [(ngModel)]="defaultSearchLocation"
+    required>
+  <br />
+
   <button
     [disabled]="loginForm.invalid"
     (click)="login(loginForm.valid)"
@@ -32,4 +49,4 @@
     (click)="register(loginForm.valid)"
     type="submit">Register
   </button>
- </form> 
+ </form>

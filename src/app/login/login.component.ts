@@ -10,8 +10,11 @@ import { NavigationService } from '../navigation.service';
 })
 export class LoginComponent implements OnInit {
 
-  public email = 'abc@abc.com';
-  public password: string;
+  public email = 'test@email.com';
+  public password = 'seba1234';
+
+  public displayName = 'Sebastian';
+  public defaultSearchLocation = 'Boston, MA';
 
   constructor(private userService: UserService, private navigationService: NavigationService) { }
 
@@ -19,7 +22,7 @@ export class LoginComponent implements OnInit {
 
   login(isValid: boolean) {
     if (isValid) {
-      this.userService.login(this.email, this.password).
+      this.userService.signIn(this.email, this.password).
       then(user => {
         this.navigationService.navigate(['/home'], { clearHistory: true });
       });
@@ -28,7 +31,7 @@ export class LoginComponent implements OnInit {
 
   register(isValid: boolean) {
     if (isValid) {
-      this.userService.register(this.email, this.password).
+      this.userService.register(this.email, this.password, this.displayName, this.defaultSearchLocation).
       then(user => {
         this.navigationService.navigate(['/home'], { clearHistory: true });
       });

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "234930243940",
+    "firebase_url": "https://pet-bros.firebaseio.com",
+    "project_id": "pet-bros",
+    "storage_bucket": "pet-bros.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:234930243940:android:1b095b3a77734539",
+        "android_client_info": {
+          "package_name": "com.sebawita.petbros"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "234930243940-l6qnsm58lf31l1v2m3rg9sm02i89a53q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6O0kUcj8Yum8WeG-KLIm1KimNr8wVlA4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

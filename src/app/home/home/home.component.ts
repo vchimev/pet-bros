@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+
+import { UserService } from '../../user.service';
+import { User } from '../../firebase';
+
 
 @Component({
   moduleId: module.id,
@@ -7,9 +12,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  public user$: Observable<User>;
+  constructor(private userService: UserService) { }
 
-  constructor() { }
-
-  ngOnInit() { }
+  ngOnInit() {
+    this.user$ = this.userService.user$;
+  }
 
 }
