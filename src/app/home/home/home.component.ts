@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { UserService } from '../../user.service';
-import { User } from '../../firebase';
+import { FirebaseUser } from '../../firebase';
 
 
 @Component({
@@ -12,11 +12,21 @@ import { User } from '../../firebase';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  public user$: Observable<User>;
+  public user$: Observable<FirebaseUser>;
   constructor(private userService: UserService) { }
+
 
   ngOnInit() {
     this.user$ = this.userService.user$;
   }
 
+  update() {
+    this.userService.updateUserDetails({
+      displayName: 'new-name' + Date.now()
+    });
+  }
+
+  logout() {
+    this.userService.logout();
+  }
 }

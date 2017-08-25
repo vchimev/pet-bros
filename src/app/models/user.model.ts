@@ -1,4 +1,5 @@
-export class User {
+export class FirebaseUser {
+  uid: string;
   displayName: string;
   email: string;
   defaultSearchLocation: string;

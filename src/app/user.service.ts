@@ -1,32 +1,40 @@
 import { Injectable } from '@angular/core';
-import { User, FirebaseService } from './firebase';
+import { FirebaseUser, FirebaseUserService, FirebaseUserUpdateOptions } from './firebase';
 
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class UserService {
-  constructor(private firebase: FirebaseService) {
-    // this.user$ = this.afAuth.authState;
+  constructor(private firebaseUserService: FirebaseUserService) { }
+
+  get user$(): Observable<FirebaseUser> {
+    return this.firebaseUserService.user$;
   }
 
-  get user$(): Observable<User> {
-    return this.firebase.user$;
+  signIn(email: string, password: string): Promise<FirebaseUser> {
+    return this.firebaseUserService.signIn(email, password);
   }
 
-  signIn(email: string, password: string): Promise<User> {
-    return this.firebase.signIn(email, password);
-  }
+  async register(email: string, password: string, displayName: string, defaultSearchLocation: string): Promise<string> {
+    const key = await this.firebaseUserService.register(email, password);
 
-  register(email: string, password: string, displayName: string, defaultSearchLocation: string): Promise<User> {
-    return this.firebase.register(email, password, displayName);
+    this.firebaseUserService.updateUserDetails({
+      displayName: displayName
+    });
+
+    return key;
   }
 
   logout(): Promise<any> {
-    return this.firebase.logout();
+    return this.firebaseUserService.logout();
   }
 
   resetPassword(email: string): Promise<any> {
-    return this.firebase.resetPassword(email);
+    return this.firebaseUserService.resetPassword(email);
+  }
+
+  updateUserDetails(options: FirebaseUserUpdateOptions) {
+    return this.firebaseUserService.updateUserDetails(options);
   }
 
   log(name: string, result: any) {

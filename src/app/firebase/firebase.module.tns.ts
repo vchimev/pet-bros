@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FirebaseService } from './firebase.service';
+import { FirebaseUserService } from './firebase-user.service';
 
 // This needs to be converted to a Token
 export const firebaseConfig = {
@@ -8,7 +8,7 @@ export const firebaseConfig = {
 
 @NgModule({
   providers: [
-    FirebaseService
+    FirebaseUserService
   ]
 })
 export class FirebaseModule { }
