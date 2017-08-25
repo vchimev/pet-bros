@@ -5,6 +5,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { FirebaseUserService } from './firebase-user.service';
+import { FirebaseDataService } from './firebase-data.service';
 
 // This needs to be converted to a Token
 export const firebaseConfig = {
@@ -27,7 +28,8 @@ export const firebaseConfig = {
     AngularFireDatabaseModule
   ],
   providers: [
-    FirebaseUserService
+    FirebaseUserService,
+    FirebaseDataService
   ]
 })
 export class FirebaseModule { }

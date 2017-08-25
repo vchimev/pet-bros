@@ -1,4 +1,6 @@
 import { FirebaseUser } from './firebase-user.model';
+import { Observable } from 'rxjs/Observable';
+import { FirebaseObject } from './firebase-object';
 
 export interface FirebaseUserServiceCommon {
   signIn(email: string, password: string): Promise<FirebaseUser>;
@@ -12,6 +14,6 @@ export interface FirebaseUserServiceCommon {
   updateUserDetails(displayName): Promise<any>;
 }
 
-// export interface FirebaseDataServiceCommon {
-
-// }
+export interface FirebaseDataServiceCommon {
+  object(path: string): FirebaseObject<any>;
+}
