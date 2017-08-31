@@ -4,8 +4,8 @@ const replace = require('gulp-string-replace')
 const debug = require('gulp-debug');
 const del = require('del');
  
-const DEST = 'app/';
 const SRC = 'src/';
+const DEST = 'app/';
 
 function removeTns (path) {
     path.basename = path.basename.replace('.tns', '');
