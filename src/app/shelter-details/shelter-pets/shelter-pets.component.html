@@ -1,2 +1,6 @@
-<h1 class="title"
-  [innerText]="'shelter-pets.title' | translate"></h1>
+<div>
+  <petbros-pet
+    *ngFor="let pet of pets"
+    [pet]="pet">
+  </petbros-pet>
+</div>

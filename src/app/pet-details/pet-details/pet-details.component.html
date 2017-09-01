@@ -1,5 +1,8 @@
-<h1 class="title"
-  [innerText]="'pet-details.title' | translate"></h1>
+<div>
 <h3>{{pet?.name}}</h3>
+<img [src]="pet?.media.getFirstImage(3, './assets/images/generic-pet.jpg')" />
 <h5>{{pet?.description}}</h5>
-<img [src]="pet?.media.getFirstImage(3)" />
+
+<button *ngIf="!favourite" (click)="addToFavourites()">❤️</button>
+<button *ngIf="favourite" (click)="removeFromFavourites()">💔</button>
+</div>

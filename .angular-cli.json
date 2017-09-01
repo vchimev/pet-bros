@@ -17,7 +17,7 @@
       "test": "test.ts",
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
-      "prefix": "pet-bros",
+      "prefix": "petbros",
       "styles": [
         "styles.scss"
       ],

@@ -2,7 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscriber } from 'rxjs/Subscriber';
 
-import firebase = require('nativescript-plugin-firebase');
+import { FBData, addValueEventListener, addChildEventListener, removeEventListeners } from 'nativescript-plugin-firebase';
 
 import { FirebaseDataServiceCommon } from './firebase.common';
 import { FirebaseObject } from './firebase-object';
@@ -24,35 +24,35 @@ export class FirebaseDataService implements FirebaseDataServiceCommon {
     return new Observable<T>(subscriber => {
       let eventListeners: any[];
 
-      firebase.addValueEventListener(data => {
+      addValueEventListener(data => {
         this.ngZone.run(() => {
           subscriber.next(data.value);
         });
       }, path)
       .then(listenerWrapper => eventListeners = listenerWrapper.listeners);
 
-      return () => firebase.removeEventListeners(eventListeners, path);
+      return () => removeEventListeners(eventListeners, path);
     });
   }
 
   public list<T>(path: string): FirebaseList<T> {
-    const observable: Observable<T> = this.prepareListObservable(path);
+    const observable: Observable<FBData> = this.prepareListObservable(path);
 
     return new FirebaseList(observable, path);
   }
 
-  private prepareListObservable<T>(path: string): Observable<T> {
-    return new Observable<T>(subscriber => {
+  private prepareListObservable(path: string): Observable<FBData> {
+    return new Observable<FBData>(subscriber => {
       let eventListeners: any[];
 
-      firebase.addChildEventListener(data => {
+      addChildEventListener(data => {
         this.ngZone.run(() => {
-          subscriber.next(data.value);
+          subscriber.next(data);
         });
       }, path)
       .then(listenerWrapper => eventListeners = listenerWrapper.listeners);
 
-      return () => firebase.removeEventListeners(eventListeners, path);
+      return () => removeEventListeners(eventListeners, path);
     });
   }
 

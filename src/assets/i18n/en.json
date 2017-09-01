@@ -1,5 +1,6 @@
 {
     "menu": {
+        "login": "Login",
         "home": "Home",
         "pet-search": "Search Pets",
         "shelter-search": "Search Shelters"
@@ -13,8 +14,14 @@
     "pet-search": {
         "title": "Pet Search"
     },
+    "pet-search-results": {
+        "title": "Pet Search Results"
+    },
     "shelter-search": {
         "title": "Shelter Search"
+    },
+    "shelter-search-results": {
+        "title": "Shelter Search Results"
     },
     "pet-details": {
         "title": "Pet Details"

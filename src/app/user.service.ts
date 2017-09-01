@@ -1,14 +1,44 @@
 import { Injectable } from '@angular/core';
-import { FirebaseUser, FirebaseUserService, FirebaseUserUpdateOptions } from './firebase';
+import { FirebaseUser, FirebaseUserService, FirebaseUserUpdateOptions, FirebaseDataService } from './firebase';
 
 import { Observable } from 'rxjs/Observable';
+import { User, PetBasic } from './models';
+import { Pet, Shelter } from 'petfinder-angular-service';
+import { FirebaseList } from './firebase/firebase-list';
+import { assets } from './common/utils/defaults';
 
 @Injectable()
 export class UserService {
-  constructor(private firebaseUserService: FirebaseUserService) { }
+  private _currentUser: User = null;
 
-  get user$(): Observable<FirebaseUser> {
-    return this.firebaseUserService.user$;
+  constructor(private firebaseUserService: FirebaseUserService, private firebaseDataService: FirebaseDataService) { }
+
+  get user$(): Observable<User> {
+    return this.firebaseUserService.user$
+    .map(firebaseUser => {
+      if (firebaseUser) {
+        this._currentUser = {
+          uid: firebaseUser.uid,
+          displayName: firebaseUser.displayName,
+          email: firebaseUser.email,
+          defaultSearchLocation: '',
+          favouritePets: this.firebaseDataService.list(`/users/${firebaseUser.uid}/pets`),
+          favouriteShelters: this.firebaseDataService.list(`/users/${firebaseUser.uid}/shelters`)
+        };
+      } else {
+        this._currentUser = null;
+      }
+
+      return this._currentUser;
+    });
+  }
+
+  get favouritePets$(): FirebaseList<PetBasic> {
+    return this._currentUser.favouritePets;
+  }
+
+  get favouriteShelters$() {
+    return this._currentUser.favouriteShelters;
   }
 
   signIn(email: string, password: string): Promise<FirebaseUser> {
@@ -37,13 +67,40 @@ export class UserService {
     return this.firebaseUserService.updateUserDetails(options);
   }
 
-  log(name: string, result: any) {
-    if (result) {
-      // console.log(`***${name}*** ${JSON.stringify(result)}`);
-      console.log(`***${name}***`);
-      console.log(result);
-    } else {
-      console.log(`***${name}*** no result returned`);
+  isLoggedIn() {
+    return (this._currentUser) ? true : false;
+  }
+
+  addPetToFavourites(pet: Pet) {
+    if (this.isLoggedIn()) {
+        this.favouritePets$.update(pet.id, {
+          id: pet.id,
+          name: pet.name,
+          img: pet.media.getFirstImage(3, assets + '/images/generic-pet.jpg')
+        });
     }
   }
+  removePetFromFavourites(key: string) {
+    if (this.isLoggedIn()) {
+      this.favouritePets$.remove(key);
+    }
+  }
+
+  addShelterToFavourites(shelter: Shelter) {
+    if (this.isLoggedIn()) {
+      // this.favouriteShelters$.push(shelter);
+      this.favouriteShelters$.update(shelter.id, {
+        id: shelter.id,
+        name: shelter.name,
+        phone: shelter.phone,
+        email: shelter.email,
+      });
+    }
+  }
+  removeShelterFromFavourites(key: string) {
+    if (this.isLoggedIn()) {
+      this.favouriteShelters$.remove(key);
+    }
+  }
+
 }

@@ -20,7 +20,7 @@ export class FirebaseDataService implements FirebaseDataServiceCommon {
     return new FirebaseObject(firebaseObject);
   }
 
-  list<T>(path): FirebaseList<T[]> {
+  list<T>(path): FirebaseList<T> {
     const firebaseList = this.af.list(path);
 
     return new FirebaseList(firebaseList);

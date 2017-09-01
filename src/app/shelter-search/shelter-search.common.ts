@@ -5,6 +5,8 @@ import { SharedModule } from '../shared';
 import { RouterModule } from '../common';
 import { ShelterSearchRoutes } from './shelter-search.routes';
 import { ShelterSearchComponent } from './shelter-search/shelter-search.component';
+import { ShelterSearchResultsComponent } from './shelter-search-results/shelter-search-results.component';
+import { ShelterComponent } from './shelter/shelter.component';
 
 export const SHARED_MODULES: any[] = [
   SharedModule,
@@ -13,5 +15,7 @@ export const SHARED_MODULES: any[] = [
 ];
 
 export const COMPONENT_DECLARATIONS: any[] = [
-  ShelterSearchComponent
+  ShelterSearchComponent,
+  ShelterSearchResultsComponent,
+  ShelterComponent
 ];

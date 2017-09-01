@@ -2,8 +2,11 @@
 </ActionBar>
 <ScrollView>
   <StackLayout>
-    <Label [text]="pet?.name"></Label>
     <Image [src]="pet?.media.getFirstImage(3)" stretch="aspectFill"></Image>
-     <Label [text]="pet?.description" class="h4" textWrap="true"></Label> 
+
+    <Button *ngIf="!favourite" (tap)="addToFavourites()" text="❤️" class="btn btn-primary"></Button>
+    <Button *ngIf="favourite" (tap)="removeFromFavourites()" text="💔" class="btn btn-primary"></Button>
+
+    <Label [text]="pet?.description" class="h4" textWrap="true"></Label> 
   </StackLayout>
 </ScrollView>

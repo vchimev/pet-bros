@@ -1,0 +1,7 @@
+<div [routerLink]="['/pet', pet.id]">
+  <div>
+    <h4>{{pet.name}}</h4>
+    <img [src]="pet.img">
+  </div>
+  <button (click)="removeFromFavourites()">💔</button>
+</div>

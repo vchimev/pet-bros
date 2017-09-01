@@ -1,4 +1,14 @@
-<h1 class="title"
-  [innerText]="'home.title' | translate"></h1>
 
-<h3 [innerText]="(user$ | async)?.displayName"></h3>
+<div *ngIf="(user$ | async)">
+  <h2 class="bar">Favourite Pets</h2>
+  <petbros-pet
+    *ngFor="let pet of (user$ | async)?.favouritePets | async"
+    [pet]="pet">
+  </petbros-pet>
+
+  <h2 class="bar">Favourite Shelters</h2>
+  <petbros-shelter
+    *ngFor="let shelter of (user$ | async)?.favouriteShelters | async"
+    [shelter]="shelter">
+  </petbros-shelter>
+</div>

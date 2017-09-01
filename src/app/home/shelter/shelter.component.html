@@ -1,0 +1,6 @@
+<div [routerLink]="['/shelter', shelter.id]">
+  <div>
+    <h4>🏠 {{shelter.name}}</h4>
+  </div>
+  <button (click)="removeFromFavourites()">💔</button>
+</div>

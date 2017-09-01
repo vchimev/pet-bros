@@ -1,8 +1,8 @@
 import { Observable } from 'rxjs/Observable';
 import { FirebaseListObservable } from 'angularfire2/database';
 
-export class FirebaseList<T> extends Observable<T> {
-  constructor(private firebaseObservable: FirebaseListObservable<T>) {
+export class FirebaseList<T> extends Observable<T[]> {
+  constructor(private firebaseObservable: FirebaseListObservable<T[]>) {
     super(subscriber => {
       const subscription = firebaseObservable.subscribe(item => subscriber.next(item));
 

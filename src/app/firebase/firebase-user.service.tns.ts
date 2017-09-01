@@ -8,33 +8,34 @@ import { FirebaseUserServiceCommon } from './firebase.common';
 import { FirebaseUser, FirebaseUserUpdateOptions } from './firebase-user.model';
 import { AuthStateData, User } from 'nativescript-plugin-firebase';
 
+// There should be only one instance of userSubject
+const userSubject: BehaviorSubject<FirebaseUser> = new BehaviorSubject(null);
+
 @Injectable()
 export class FirebaseUserService implements FirebaseUserServiceCommon {
-  private _userSubject: BehaviorSubject<FirebaseUser>;
   public get user$(): Observable<FirebaseUser> {
-    return this._userSubject;
+    return userSubject;
   }
 
   constructor() {
-    this._userSubject = new BehaviorSubject<FirebaseUser>(null);
-
     firebase.init({
       persist: false,
       iOSEmulatorFlush: true,
-
-      onAuthStateChanged: (data: AuthStateData) => {
-        if (data.loggedIn) {
-          const currentUser: FirebaseUser = this.parseUser(data.user);
-          this._userSubject.next(currentUser);
-        } else {
-          this._userSubject.next(null);
-        }
-    }
-
-    }).then(
+      onAuthStateChanged: data => this.onAuthStateChanged(data)
+    })
+    .then(
       (instance) => console.log('firebase.init done'),
       (error) => console.log('firebase.init error: ' + error)
     );
+  }
+
+  private onAuthStateChanged(data: AuthStateData) {
+    if (data.loggedIn) {
+      const currentUser: FirebaseUser = this.parseUser(data.user);
+      userSubject.next(currentUser);
+    } else {
+      userSubject.next(null);
+    }
   }
 
   private parseUser(user: User): FirebaseUser {
@@ -99,10 +100,10 @@ export class FirebaseUserService implements FirebaseUserServiceCommon {
     userClone.photoURL = (options.photoURL) ? options.photoURL : userClone.photoURL;
     userClone.email = (options.email) ? options.email : userClone.email;
 
-    this._userSubject.next(userClone);
+    userSubject.next(userClone);
   }
 
   private cloneCurrentUser(): FirebaseUser {
-    return {...this._userSubject.value};
+    return {...userSubject.value};
   }
 }

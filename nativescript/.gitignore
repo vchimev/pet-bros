@@ -7,6 +7,8 @@ app/**/*
 !app/vendor-platform.android.ts
 !app/vendor-platform.ios.ts
 !app/vendor.ts
+!gulpfile.js
+!webpack.config.js
 
 src/app
 src/assets

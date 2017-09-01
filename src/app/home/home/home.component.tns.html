@@ -1,7 +1,27 @@
-<StackLayout>
-  <Label class="h1 title"
-    [text]="'home.title' | translate"></Label>
+<ActionBar [title]="'home.title' | translate" icon="" class="action-bar">
+</ActionBar>
 
-  <Label [text]="(user$ | async)?.displayName" class="h1"></Label>
-  
-</StackLayout>
+<TabView #tabView>
+  <StackLayout *tabItem="{title: 'Favourite Pets'}">
+    <Button [nsRouterLink]="['/petSearch']" text="Find More Pets" class="btn btn-primary"></Button>
+    
+    <ListView height="100%"
+      [items]="(user$ | async)?.favouritePets | async" 
+      class="list-group">
+      <ng-template let-pet="item">
+        <petbros-pet [pet]="pet"></petbros-pet>
+      </ng-template>
+    </ListView>
+  </StackLayout>
+
+  <StackLayout *tabItem="{title: 'Favourite Shelters'}">
+    <Button [nsRouterLink]="['/shelterSearch']" text="Find More Shelters" class="btn btn-primary"></Button>
+    <ListView height="100%"
+      [items]="(user$ | async)?.favouriteShelters | async"
+      class="list-group">
+      <ng-template let-shelter="item">
+        <petbros-shelter [shelter]="shelter" class="list-group-item"></petbros-shelter>
+      </ng-template>
+    </ListView>
+  </StackLayout>
+</TabView>

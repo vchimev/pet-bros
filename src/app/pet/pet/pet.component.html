@@ -1,0 +1,8 @@
+<div>
+  <div [routerLink]="['/pet', pet.id]">
+    <h4>{{pet.name}}</h4>
+    <img [src]="pet.media.getFirstImage(3, './assets/images/generic-pet.jpg')">
+  </div>
+  <button *ngIf="!favourite" (click)="addToFavourites()">❤️</button>
+  <button *ngIf="favourite" (click)="removeFromFavourites()">💔</button>
+</div>

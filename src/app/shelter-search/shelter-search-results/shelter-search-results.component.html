@@ -1,2 +1,9 @@
 <h1 class="title"
   [innerText]="'shelter-search-results.title' | translate"></h1>
+
+<div>
+  <petbros-shelter
+    *ngFor="let shelter of shelters"
+    [shelter]="shelter">
+  </petbros-shelter>
+</div>

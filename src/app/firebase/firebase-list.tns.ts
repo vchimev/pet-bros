@@ -1,12 +1,35 @@
 import { Observable } from 'rxjs/Observable';
 import firebase = require('nativescript-plugin-firebase');
+import { FBData } from 'nativescript-plugin-firebase';
 
-export class FirebaseList<T> extends Observable<T> {
-  constructor(private observable: Observable<T>, private path: string) {
+export class FirebaseList<T> extends Observable<T[]> {
+  private items: Map<string, T>;
+
+  constructor(private observable: Observable<FBData>, private path: string) {
     super(subscriber => {
-      const subscription = observable.subscribe(item => subscriber.next(item));
+      this.items = new Map<string, T>();
 
-      return () => subscription.unsubscribe();
+      const subscription = observable.subscribe(item => {
+        switch (item.type) {
+          case 'ChildAdded':
+          case 'ChildChanged':
+            item.value.$key = item.key;
+            this.items.set(item.key, item.value);
+            break;
+          case 'ChildRemoved':
+            this.items.delete(item.key);
+            break;
+        }
+
+        const items: T[] = Array.from(this.items.values());
+
+        subscriber.next(items);
+      });
+
+      return () => {
+        this.items.clear();
+        subscription.unsubscribe();
+      };
     });
   }
 

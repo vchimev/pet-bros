@@ -4,7 +4,7 @@ import { NavigationService } from '../navigation.service';
 
 @Component({
   moduleId: module.id,
-  selector: 'pet-bros-login',
+  selector: 'petbros-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
@@ -36,5 +36,21 @@ export class LoginComponent implements OnInit {
         this.navigationService.navigate(['/home'], { clearHistory: true });
       });
     }
+  }
+
+  logout() {
+    this.userService.logout();
+  }
+
+  update() {
+    this.userService.updateUserDetails({
+      displayName: this.displayName,
+      photoURL: null,
+      email: this.email
+    });
+  }
+
+  reset() {
+    this.userService.resetPassword('sebawita@gmail.com');
   }
 }

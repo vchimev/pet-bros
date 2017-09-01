@@ -3,8 +3,6 @@ import { Observable } from 'rxjs/Observable';
 import { Subscriber } from 'rxjs/Subscriber';
 
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabase } from 'angularfire2/database';
-import * as firebase from 'firebase/app';
 import { User } from 'firebase/app';
 
 import { FirebaseUser, FirebaseUserUpdateOptions } from './firebase-user.model';
@@ -20,9 +18,7 @@ export class FirebaseUserService implements FirebaseUserServiceCommon {
     return this._user$;
   }
 
-  constructor(private afAuth: AngularFireAuth, private af: AngularFireDatabase) {
-    // this._user$ = this.afAuth.authState
-    // .map(user => this.parseUser(user));
+  constructor(private afAuth: AngularFireAuth) {
 
     this._user$ = new Observable<FirebaseUser>(observer => {
       this._userObserver = observer;
@@ -92,6 +88,9 @@ export class FirebaseUserService implements FirebaseUserServiceCommon {
     }
 
     this.pushUpdate(options);
+
+    // TODO: Find a way to send an update with the updated user info
+    // this._userObserver.next(currentUser);
 
     return;
   }

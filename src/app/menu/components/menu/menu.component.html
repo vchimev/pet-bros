@@ -1,2 +1,3 @@
 <seed-menu-item *ngFor="let item of items"
     [item]="item"></seed-menu-item>
+{{(user$ | async)?.displayName}}

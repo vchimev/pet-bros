@@ -1,2 +1,29 @@
 <h1 class="title"
   [innerText]="'shelter-search.title' | translate"></h1>
+
+  <label [for]="locationInput">location:</label>
+  <input #locationInput [(ngModel)]="location" />
+  <br />
+  
+  <label [for]="nameInput">name:</label>
+  <input #nameInput [(ngModel)]="name" />
+  <br />
+  
+  <button (click)="findShelters()">Find Shelters</button>
+
+  <br />
+  <br />
+{{animal}}
+  <select [(ngModel)]="animal" (change)="refreshBreeds()">
+    <option value="">Any Animal</option>
+    <option *ngFor="let animal of availableValues.animal">{{animal}}</option>
+  </select>
+  
+  <select [(ngModel)]="breed">
+    <option value="">Any Breed</option>
+    <option *ngFor="let breed of breeds">{{breed}}</option>
+  </select>
+
+  <br />
+  <button (click)="findSheltersByBreed()">Find Shelters by Breed</button>
+  
