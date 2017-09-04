@@ -10,30 +10,26 @@ import { FirebaseUserServiceCommon } from './firebase.common';
 
 @Injectable()
 export class FirebaseUserService implements FirebaseUserServiceCommon {
-  private _currentUser: FirebaseUser; // used to send an update to user$ subscribers, when user details get updated
+  public get currentUser(): FirebaseUser {
+    return this.parseUser(this.afAuth.auth.currentUser);
+  }
 
-  private _userObserver: Subscriber<FirebaseUser>;
   private _user$: Observable<FirebaseUser>;
   public get user$(): Observable<FirebaseUser> {
     return this._user$;
   }
 
+
   constructor(private afAuth: AngularFireAuth) {
+    this._user$ = this.prepareUserObservable();
+  }
 
-    this._user$ = new Observable<FirebaseUser>(observer => {
-      this._userObserver = observer;
-
-      const subscription = this.afAuth.authState
-      .map(user => this.parseUser(user))
-      .do(user => this._currentUser = user)
-      .subscribe(user => observer.next(user));
-
-      return () => subscription.unsubscribe();
-    });
+  private prepareUserObservable(): Observable<FirebaseUser> {
+    return this.afAuth.authState
+    .map(user => this.parseUser(user));
   }
 
   private parseUser(user: User): FirebaseUser {
-    console.log('Parse:' + ((user) ? user.displayName : 'null'));
     if (user) {
       return {
         uid: user.uid,
@@ -89,23 +85,26 @@ export class FirebaseUserService implements FirebaseUserServiceCommon {
 
     this.pushUpdate(options);
 
-    // TODO: Find a way to send an update with the updated user info
-    // this._userObserver.next(currentUser);
-
     return;
   }
 
   private pushUpdate(options: FirebaseUserUpdateOptions) {
-    const userClone = this.cloneCurrentUser();
-
-    userClone.displayName = (options.displayName) ? options.displayName : userClone.displayName;
-    userClone.photoURL = (options.photoURL) ? options.photoURL : userClone.photoURL;
-    userClone.email = (options.email) ? options.email : userClone.email;
-
-    this._userObserver.next(userClone);
+    this.currentUser.displayName = (options.displayName) ? options.displayName : this.currentUser.displayName;
+    this.currentUser.photoURL = (options.photoURL) ? options.photoURL : this.currentUser.photoURL;
+    this.currentUser.email = (options.email) ? options.email : this.currentUser.email;
   }
 
-  private cloneCurrentUser(): FirebaseUser {
-    return {...this._currentUser};
-  }
+  // private pushUpdate(options: FirebaseUserUpdateOptions) {
+  //   const userClone = this.cloneCurrentUser();
+
+  //   userClone.displayName = (options.displayName) ? options.displayName : userClone.displayName;
+  //   userClone.photoURL = (options.photoURL) ? options.photoURL : userClone.photoURL;
+  //   userClone.email = (options.email) ? options.email : userClone.email;
+
+  //   this._userObserver.next(userClone);
+  // }
+
+  // private cloneCurrentUser(): FirebaseUser {
+  //   return {...this.currentUser};
+  // }
 }
