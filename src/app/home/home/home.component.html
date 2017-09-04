@@ -1,14 +1,14 @@
 
-<div *ngIf="(user$ | async)">
+<div>
   <h2 class="bar">Favourite Pets</h2>
   <petbros-pet
-    *ngFor="let pet of (user$ | async)?.favouritePets | async"
+    *ngFor="let pet of favouritePets$ | async"
     [pet]="pet">
   </petbros-pet>
 
   <h2 class="bar">Favourite Shelters</h2>
   <petbros-shelter
-    *ngFor="let shelter of (user$ | async)?.favouriteShelters | async"
+    *ngFor="let shelter of favouriteShelters$ | async"
     [shelter]="shelter">
   </petbros-shelter>
 </div>

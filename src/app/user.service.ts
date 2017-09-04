@@ -2,50 +2,74 @@ import { Injectable } from '@angular/core';
 import { FirebaseUser, FirebaseUserService, FirebaseUserUpdateOptions, FirebaseDataService } from './firebase';
 
 import { Observable } from 'rxjs/Observable';
-import { User, PetBasic } from './models';
+import { Subscription } from 'rxjs/Subscription';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import 'rxjs/add/operator/switchMap';
+
+import { PetBasic } from './models';
 import { Pet, Shelter } from 'petfinder-angular-service';
 import { FirebaseList } from './firebase/firebase-list';
 import { assets } from './common/utils/defaults';
 
 @Injectable()
 export class UserService {
-  private _currentUser: User = null;
+  private _currentUser: FirebaseUser = null;
+  private _favouritePets: FirebaseList<PetBasic>;
+  private _favouriteShelters: FirebaseList<any>;
 
-  constructor(private firebaseUserService: FirebaseUserService, private firebaseDataService: FirebaseDataService) { }
+  public get user$(): Observable<FirebaseUser> {
+    return this.firebaseUserService.user$;
+  }
 
-  get user$(): Observable<User> {
-    return this.firebaseUserService.user$
-    .map(firebaseUser => {
-      if (firebaseUser) {
-        this._currentUser = {
-          uid: firebaseUser.uid,
-          displayName: firebaseUser.displayName,
-          email: firebaseUser.email,
-          defaultSearchLocation: '',
-          favouritePets: this.firebaseDataService.list(`/users/${firebaseUser.uid}/pets`),
-          favouriteShelters: this.firebaseDataService.list(`/users/${firebaseUser.uid}/shelters`)
-        };
+  /**
+   * Returns a long lived Observable, which returns pets for currently logged in user
+   * It will automatically switch to a new user when new user loggs in
+   */
+  public get favouritePets$(): Observable<PetBasic[]> {
+    return this.user$.switchMap(user => {
+      if (user) {
+        return this.firebaseDataService.list<PetBasic>(`/users/${user.uid}/pets`);
       } else {
-        this._currentUser = null;
+        // fallback
+        return new BehaviorSubject([]);
       }
-
-      return this._currentUser;
     });
   }
 
-  get favouritePets$(): FirebaseList<PetBasic> {
-    return this._currentUser.favouritePets;
+  /**
+   * Returns a long lived Observable, which returns shelters for currently logged in user
+   * It will automatically switch to a new user when new user loggs in
+   */
+  public get favouriteShelters$(): Observable<any[]> {
+    return this.user$.switchMap(user => {
+      if (user) {
+        return this.firebaseDataService.list<any>(`/users/${user.uid}/shelters`);
+      } else {
+        return new BehaviorSubject([]);
+      }
+    });
   }
 
-  get favouriteShelters$() {
-    return this._currentUser.favouriteShelters;
+  constructor(private firebaseUserService: FirebaseUserService, private firebaseDataService: FirebaseDataService) {
+    this.user$.subscribe(firebaseUser => this.onUserUpdate(firebaseUser));
   }
 
-  signIn(email: string, password: string): Promise<FirebaseUser> {
+  private onUserUpdate(firebaseUser: FirebaseUser) {
+    this._currentUser = firebaseUser;
+    if (firebaseUser) {
+      this._favouritePets = this.firebaseDataService.list(`/users/${firebaseUser.uid}/pets`);
+      this._favouriteShelters = this.firebaseDataService.list(`/users/${firebaseUser.uid}/shelters`);
+    } else {
+      this._favouritePets = null;
+      this._favouriteShelters = null;
+    }
+  }
+
+  public signIn(email: string, password: string): Promise<FirebaseUser> {
     return this.firebaseUserService.signIn(email, password);
   }
 
-  async register(email: string, password: string, displayName: string, defaultSearchLocation: string): Promise<string> {
+  public async register(email: string, password: string, displayName: string, defaultSearchLocation: string): Promise<string> {
     const key = await this.firebaseUserService.register(email, password);
 
     this.firebaseUserService.updateUserDetails({
@@ -55,41 +79,40 @@ export class UserService {
     return key;
   }
 
-  logout(): Promise<any> {
+  public logout(): Promise<any> {
     return this.firebaseUserService.logout();
   }
 
-  resetPassword(email: string): Promise<any> {
+  public resetPassword(email: string): Promise<any> {
     return this.firebaseUserService.resetPassword(email);
   }
 
-  updateUserDetails(options: FirebaseUserUpdateOptions) {
+  public updateUserDetails(options: FirebaseUserUpdateOptions) {
     return this.firebaseUserService.updateUserDetails(options);
   }
 
-  isLoggedIn() {
+  public isLoggedIn() {
     return (this._currentUser) ? true : false;
   }
 
-  addPetToFavourites(pet: Pet) {
+  public addPetToFavourites(pet: Pet) {
     if (this.isLoggedIn()) {
-        this.favouritePets$.update(pet.id, {
+        this._favouritePets.update(pet.id, {
           id: pet.id,
           name: pet.name,
           img: pet.media.getFirstImage(3, assets + '/images/generic-pet.jpg')
         });
     }
   }
-  removePetFromFavourites(key: string) {
+  public removePetFromFavourites(key: string) {
     if (this.isLoggedIn()) {
-      this.favouritePets$.remove(key);
+      this._favouritePets.remove(key);
     }
   }
 
-  addShelterToFavourites(shelter: Shelter) {
+  public addShelterToFavourites(shelter: Shelter) {
     if (this.isLoggedIn()) {
-      // this.favouriteShelters$.push(shelter);
-      this.favouriteShelters$.update(shelter.id, {
+      this._favouriteShelters.update(shelter.id, {
         id: shelter.id,
         name: shelter.name,
         phone: shelter.phone,
@@ -97,10 +120,9 @@ export class UserService {
       });
     }
   }
-  removeShelterFromFavourites(key: string) {
+  public removeShelterFromFavourites(key: string) {
     if (this.isLoggedIn()) {
-      this.favouriteShelters$.remove(key);
+      this._favouriteShelters.remove(key);
     }
   }
-
 }

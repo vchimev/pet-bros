@@ -6,7 +6,7 @@
     <Button [nsRouterLink]="['/petSearch']" text="Find More Pets" class="btn btn-primary"></Button>
     
     <ListView height="100%"
-      [items]="(user$ | async)?.favouritePets | async" 
+      [items]="favouritePets$ | async" 
       class="list-group">
       <ng-template let-pet="item">
         <petbros-pet [pet]="pet"></petbros-pet>
@@ -16,8 +16,9 @@
 
   <StackLayout *tabItem="{title: 'Favourite Shelters'}">
     <Button [nsRouterLink]="['/shelterSearch']" text="Find More Shelters" class="btn btn-primary"></Button>
+    
     <ListView height="100%"
-      [items]="(user$ | async)?.favouriteShelters | async"
+      [items]="favouriteShelters$ | async"
       class="list-group">
       <ng-template let-shelter="item">
         <petbros-shelter [shelter]="shelter" class="list-group-item"></petbros-shelter>

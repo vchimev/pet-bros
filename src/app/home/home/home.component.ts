@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { UserService } from '../../user.service';
 import { FirebaseUser, FirebaseDataService } from '../../firebase';
 // import { FirebaseDataService } from '../../firebase/firebase-data.service';
-import { User, PetBasic } from '../../models';
+import { PetBasic } from '../../models';
 
 @Component({
   moduleId: module.id,
@@ -13,12 +13,14 @@ import { User, PetBasic } from '../../models';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  public user$: Observable<User>;
+  public favouritePets$: Observable<PetBasic[]>;
+  public favouriteShelters$: Observable<any[]>;
 
-  constructor(private userService: UserService, private dataService: FirebaseDataService) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.user$ = this.userService.user$;
+    this.favouritePets$ = this.userService.favouritePets$;
+    this.favouriteShelters$ = this.userService.favouriteShelters$;
   }
 }
 
