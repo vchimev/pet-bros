@@ -1,55 +1,62 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Subscriber } from 'rxjs/Subscriber';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
 
 import firebase = require('nativescript-plugin-firebase');
 
 import { FirebaseUserServiceCommon } from './firebase.common';
 import { FirebaseUser, FirebaseUserUpdateOptions } from './firebase-user.model';
-import { AuthStateData, User } from 'nativescript-plugin-firebase';
+import { AuthStateData, User, AuthStateChangeListener } from 'nativescript-plugin-firebase';
 
-// There should be only one instance of userSubject
-const userSubject: BehaviorSubject<FirebaseUser> = new BehaviorSubject(null);
+let userSubject: BehaviorSubject<FirebaseUser>;
 
 @Injectable()
 export class FirebaseUserService implements FirebaseUserServiceCommon {
+  public get currentUser(): FirebaseUser {
+    return userSubject.value;
+  }
+
   public get user$(): Observable<FirebaseUser> {
     return userSubject;
   }
 
-  constructor() {
-    firebase.init({
-      persist: false,
-      iOSEmulatorFlush: true,
-      onAuthStateChanged: data => this.onAuthStateChanged(data)
-    })
-    .then(
-      (instance) => console.log('firebase.init done'),
-      (error) => console.log('firebase.init error: ' + error)
-    );
-  }
+  private prepareUserObservable() {
+    if (!userSubject) {
+      userSubject = new BehaviorSubject<FirebaseUser>(null);
 
-  private onAuthStateChanged(data: AuthStateData) {
-    if (data.loggedIn) {
-      const currentUser: FirebaseUser = this.parseUser(data.user);
-      userSubject.next(currentUser);
-    } else {
-      userSubject.next(null);
+      const authStateListener: AuthStateChangeListener = {
+        onAuthStateChanged: data => {
+          const user = (data.loggedIn) ? this.parseUser(data.user) : null;
+          userSubject.next(user);
+        }
+      };
+
+      firebase.addAuthStateListener(authStateListener);
     }
   }
 
   private parseUser(user: User): FirebaseUser {
-    return {
-      uid: user.uid,
-      displayName: user.name,
-      email: user.email,
-      emailVerified: user.emailVerified,
-      isAnonymous: user.anonymous,
-      phoneNumber: (user as any).phoneNumber,
-      photoURL: user.profileImageURL,
-      providerData: user.providers.map(provider => { return  { providerId: provider.id }; }),
-      refreshToken: user.refreshToken
-    };
+    if (user) {
+      return {
+        uid: user.uid,
+        displayName: user.name,
+        email: user.email,
+        emailVerified: user.emailVerified,
+        isAnonymous: user.anonymous,
+        phoneNumber: (user as any).phoneNumber,
+        photoURL: user.profileImageURL,
+        providerData: user.providers.map(provider => { return  { providerId: provider.id }; }),
+        refreshToken: user.refreshToken
+      };
+    }
+
+    return null;
+  }
+
+  constructor() {
+    this.prepareUserObservable();
   }
 
   public async signIn(email: string, password: string): Promise<FirebaseUser> {
@@ -94,16 +101,22 @@ export class FirebaseUserService implements FirebaseUserServiceCommon {
   }
 
   private pushUpdate(options: FirebaseUserUpdateOptions) {
-    const userClone = this.cloneCurrentUser();
-
-    userClone.displayName = (options.displayName) ? options.displayName : userClone.displayName;
-    userClone.photoURL = (options.photoURL) ? options.photoURL : userClone.photoURL;
-    userClone.email = (options.email) ? options.email : userClone.email;
-
-    userSubject.next(userClone);
+    this.currentUser.displayName = (options.displayName) ? options.displayName : this.currentUser.displayName;
+    this.currentUser.photoURL = (options.photoURL) ? options.photoURL : this.currentUser.photoURL;
+    this.currentUser.email = (options.email) ? options.email : this.currentUser.email;
   }
 
-  private cloneCurrentUser(): FirebaseUser {
-    return {...userSubject.value};
-  }
+  // private pushUpdate(options: FirebaseUserUpdateOptions) {
+  //   const userClone = this.cloneCurrentUser();
+
+  //   userClone.displayName = (options.displayName) ? options.displayName : userClone.displayName;
+  //   userClone.photoURL = (options.photoURL) ? options.photoURL : userClone.photoURL;
+  //   userClone.email = (options.email) ? options.email : userClone.email;
+
+  //   userSubject.next(userClone);
+  // }
+
+  // private cloneCurrentUser(): FirebaseUser {
+  //   return {...this.currentUser};
+  // }
 }
