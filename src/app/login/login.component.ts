@@ -22,8 +22,8 @@ export class LoginComponent implements OnInit {
 
   login(isValid: boolean) {
     if (isValid) {
-      this.userService.signIn(this.email, this.password).
-      then(user => {
+      this.userService.signIn(this.email, this.password)
+      .then(user => {
         this.navigationService.navigate(['/home'], { clearHistory: true });
       });
     }
