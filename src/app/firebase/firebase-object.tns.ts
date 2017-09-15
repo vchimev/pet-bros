@@ -7,7 +7,7 @@ import firebase = require('nativescript-plugin-firebase');
 export class FirebaseObject<T> extends Observable<T> {
   constructor(private observable: Observable<T>, private path: string) {
     super(subscriber => {
-      const subscription = observable.subscribe(item => subscriber.next(item));
+      const subscription = observable.subscribe(subscriber);
 
       return () => subscription.unsubscribe();
     });

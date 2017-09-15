@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import firebase = require('nativescript-plugin-firebase');
 
 import { FirebaseUserServiceCommon } from './firebase.common';
-import { FirebaseUser, FirebaseUserUpdateOptions } from './firebase-user.model';
+import { FirebaseUser, FirebaseUserUpdateOptions, Provider } from './firebase-user.model';
 import { AuthStateData, User, AuthStateChangeListener } from 'nativescript-plugin-firebase';
 
 let userSubject: BehaviorSubject<FirebaseUser>;
@@ -47,12 +47,20 @@ export class FirebaseUserService implements FirebaseUserServiceCommon {
         isAnonymous: user.anonymous,
         phoneNumber: (user as any).phoneNumber,
         photoURL: user.profileImageURL,
-        providerData: user.providers.map(provider => { return  { providerId: provider.id }; }),
+        providerData: this.parseProviders(user),
         refreshToken: user.refreshToken
       };
     }
 
     return null;
+  }
+
+  private parseProviders(user: User): Provider[] {
+    return user.providers.map(
+      provider => {
+        return  { providerId: provider.id };
+      }
+    );
   }
 
   constructor() {

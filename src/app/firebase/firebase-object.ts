@@ -4,7 +4,7 @@ import { FirebaseObjectObservable } from 'angularfire2/database';
 export class FirebaseObject<T> extends Observable<T> {
   constructor(private firebaseObservable: FirebaseObjectObservable<T>) {
     super(subscriber => {
-      const subscription = firebaseObservable.subscribe(item => subscriber.next(item));
+      const subscription = firebaseObservable.subscribe(subscriber);
 
       return () => subscription.unsubscribe();
     });

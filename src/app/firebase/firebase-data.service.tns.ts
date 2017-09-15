@@ -29,7 +29,7 @@ export class FirebaseDataService implements FirebaseDataServiceCommon {
           subscriber.next(data.value);
         });
       }, path)
-      .then(listenerWrapper => eventListeners = listenerWrapper.listeners);
+      .then(result => eventListeners = result.listeners);
 
       return () => removeEventListeners(eventListeners, path);
     });

@@ -37,7 +37,7 @@ export class FirebaseUserService implements FirebaseUserServiceCommon {
         email: user.email,
         emailVerified: user.emailVerified,
         isAnonymous: user.isAnonymous,
-        phoneNumber: (user as any).phoneNumber,
+        phoneNumber: user.phoneNumber,
         photoURL: user.photoURL,
         providerData: user.providerData.map(provider => { return  { providerId: provider.providerId }; }),
         refreshToken: user.refreshToken
