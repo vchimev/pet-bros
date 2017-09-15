@@ -21,9 +21,9 @@ export class FirebaseList<T> extends Observable<T[]> {
             break;
         }
 
-        const items: T[] = Array.from(this.items.values());
+        const newValues: T[] = Array.from(this.items.values());
 
-        subscriber.next(items);
+        subscriber.next(newValues);
       });
 
       return () => {
