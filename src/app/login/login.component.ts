@@ -14,7 +14,6 @@ export class LoginComponent implements OnInit {
   public password = 'seba1234';
 
   public displayName = 'Sebastian';
-  public defaultSearchLocation = 'Boston, MA';
 
   constructor(private userService: UserService, private navigationService: NavigationService) { }
 
@@ -31,8 +30,8 @@ export class LoginComponent implements OnInit {
 
   register(isValid: boolean) {
     if (isValid) {
-      this.userService.register(this.email, this.password, this.displayName, this.defaultSearchLocation).
-      then(user => {
+      this.userService.register(this.email, this.password, this.displayName)
+      .then(user => {
         this.navigationService.navigate(['/home'], { clearHistory: true });
       });
     }

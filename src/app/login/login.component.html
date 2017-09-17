@@ -30,14 +30,6 @@
     required>
   <br />
 
-  <label>Default Search Location (US address):</label>
-  <input 
-    #passwordModel="ngModel"
-    name="defaultLocation"
-    [(ngModel)]="defaultSearchLocation"
-    required>
-  <br />
-
   <button
     [disabled]="loginForm.invalid"
     (click)="login(loginForm.valid)"
@@ -51,6 +43,6 @@
   </button>
 
   <button (click)="logout()">Logout</button>
-  <button (click)="update()">Update</button>
-  <button (click)="reset()">Reset</button>
+  <!-- <button (click)="update()">Update</button>
+  <button (click)="reset()">Reset</button> -->
  </form>

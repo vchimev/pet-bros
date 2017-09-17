@@ -69,7 +69,7 @@ export class UserService {
     return this.firebaseUserService.signIn(email, password);
   }
 
-  public async register(email: string, password: string, displayName: string, defaultSearchLocation: string): Promise<string> {
+  public async register(email: string, password: string, displayName: string): Promise<string> {
     const key = await this.firebaseUserService.register(email, password);
 
     this.firebaseUserService.updateUserDetails({
