@@ -1,9 +1,10 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { SHARED_MODULES, COMPONENT_DECLARATIONS } from './pet-search.common';
-
+import { NativeScriptUIDataFormModule } from 'nativescript-telerik-ui-pro/dataform/angular';
 @NgModule({
   imports: [
-    ...SHARED_MODULES
+    ...SHARED_MODULES,
+    NativeScriptUIDataFormModule
   ],
   declarations: [
     ...COMPONENT_DECLARATIONS

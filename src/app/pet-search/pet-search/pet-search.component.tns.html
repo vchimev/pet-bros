@@ -1,34 +1,23 @@
 <ActionBar [title]="'pet-search.title' | translate" class="action-bar">
 </ActionBar>
-<ScrollView>
-  <StackLayout class="p-x-10">
-    <TextField hint="location" [(ngModel)]="location"></TextField>
+<GridLayout rows="*, auto" tkExampleTitle tkToggleNavButton class="p-x-10">
 
-    <Button (tap)="findPets()" text="Find Pets" class="btn btn-primary"></Button>
-    <Label [text]="'Animal: ' + searchOptions.animal" class="h3"></Label>
-    <ListPicker
-      [items]="availableValues.animal"
-      index="0"
-      (selectedIndexChange)="searchOptions.animal = ($event.value || $event.value == 0) ? availableValues.animal[$event.value] : ''; refreshBreeds();">
-    </ListPicker>
+  <RadDataForm row="0" [source]="searchOptions" (propertyCommitted)="onPropertyCommitted($event)"> 
+    <TKEntityProperty tkDataFormProperty name="location" displayName="Location" index="0">
+    </TKEntityProperty>
+    <TKEntityProperty tkDataFormProperty name="animal" displayName="Animal" index="1" [valuesProvider]="animals">
+      <TKPropertyEditor tkEntityPropertyEditor type="Picker"></TKPropertyEditor>
+    </TKEntityProperty>
+    <TKEntityProperty tkDataFormProperty name="breed" displayName="Breed" index="2" [valuesProvider]="breeds">
+      <TKPropertyEditor tkEntityPropertyEditor type="Picker"></TKPropertyEditor>
+    </TKEntityProperty>
+    <TKEntityProperty tkDataFormProperty name="age" displayName="Age" index="3" [valuesProvider]="ages">
+      <TKPropertyEditor tkEntityPropertyEditor type="Picker"></TKPropertyEditor>
+    </TKEntityProperty>
+    <TKEntityProperty tkDataFormProperty name="sex" displayName="Sex" index="4" [valuesProvider]="sexes">
+      <TKPropertyEditor tkEntityPropertyEditor type="Picker"></TKPropertyEditor>
+    </TKEntityProperty>
+  </RadDataForm>
 
-    <Label [text]="'Breed: ' + searchOptions.breed" class="h3"></Label>
-    <ListPicker
-      [items]="breeds"
-      (selectedIndexChange)="searchOptions.breed = ($event.value || $event.value == 0) ? breeds[$event.value] : ''">
-    </ListPicker>
-
-    <Label [text]="'Age: ' + searchOptions.age" class="h3"></Label>
-    <ListPicker
-      [items]="availableValues.age"
-      (selectedIndexChange)="searchOptions.age = ($event.value || $event.value == 0) ? availableValues.age[$event.value] : ''">
-    </ListPicker>
-
-    <Label [text]="'Sex: ' + searchOptions.sex" class="h3"></Label>
-    <ListPicker
-      [items]="availableValues.sex"
-      (selectedIndexChange)="searchOptions.sex = ($event.value || $event.value == 0) ? availableValues.sex[$event.value] : ''">
-    </ListPicker>
-
-  </StackLayout>
-</ScrollView>
+  <Button row="1" (tap)="findPets()" text="Find Pets" class="btn btn-primary"></Button>
+</GridLayout>
