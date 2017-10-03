@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PetFinderService, Pet, PetSearchOptions, Options, AvailableValues } from 'petfinder-angular-service';
 import { UserService } from '../../user.service';
 import { NavigationService } from '../../navigation.service';
+import { KeyLabel } from '../../models/key-label';
 
 @Component({
   moduleId: module.id,
@@ -9,16 +10,20 @@ import { NavigationService } from '../../navigation.service';
   templateUrl: './pet-search.component.html',
   styleUrls: ['./pet-search.component.scss']
 })
-export class PetSearchComponent {
-  public location = 'Boston, MA';
-  public searchOptions: PetSearchOptions = {
-    animal: 'dog',
+export class PetSearchComponent implements OnInit {
+
+  public searchOptions = {
+    location: 'Boston, MA',
+    animal: '',
     breed: '',
     age: '',
     sex: ''
   };
 
-  public breeds: string[] = [];
+  public animals: KeyLabel[];
+  public sexes: KeyLabel[];
+  public ages: KeyLabel[];
+  public breeds: KeyLabel[];
 
   public availableValues = AvailableValues;
 
@@ -26,11 +31,23 @@ export class PetSearchComponent {
     private navigation: NavigationService,
     private petfinderService: PetFinderService) { }
 
+
+  ngOnInit(): void {
+    this.animals = KeyLabel.mapAvailableValues(AvailableValues.animal, 'Any Animal');
+    this.sexes = KeyLabel.mapAvailableValues(AvailableValues.sex, 'Any Sex');
+    this.ages = KeyLabel.mapAvailableValues(AvailableValues.age, 'Any Age');
+    this.breeds = KeyLabel.mapAvailableValues([], 'Any Breed');
+  }
+  onPropertyCommitted(data) {
+    if (data.propertyName === 'animal') {
+      this.refreshBreeds();
+    }
+  }
   refreshBreeds() {
-    this.searchOptions.breed = null;
+    this.searchOptions.breed = '';
     if (this.searchOptions.animal) {
       this.petfinderService.breedList(this.searchOptions.animal)
-      .then(breeds => this.breeds = breeds);
+      .then(breeds => this.breeds = KeyLabel.mapAvailableValues(breeds, 'Any breed'));
     } else {
       this.breeds = [];
     }
@@ -39,11 +56,10 @@ export class PetSearchComponent {
   findPets() {
     const navigationExtras = {
       queryParams: {
-        'location': this.location,
+        'location': this.searchOptions.location,
         'searchOptions': JSON.stringify(this.searchOptions)
       }
     };
     this.navigation.navigate(['petSearch/results'], navigationExtras);
   }
-
 }

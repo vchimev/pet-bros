@@ -1,26 +1,22 @@
 <h1 class="title"
   [innerText]="'pet-search.title' | translate"></h1>
 
-<input [(ngModel)]="location">
+<input [(ngModel)]="searchOptions.location">
 
 <select [(ngModel)]="searchOptions.animal" (change)="refreshBreeds()">
-  <option value="">Any Animal</option>
-  <option *ngFor="let animal of availableValues.animal">{{animal}}</option>
+  <option *ngFor="let animal of animals" [value]="animal.key">{{animal.label}}</option>
 </select>
 
 <select [(ngModel)]="searchOptions.breed">
-  <option value="">Any Breed</option>
-  <option *ngFor="let breed of breeds">{{breed}}</option>
+  <option *ngFor="let breed of breeds" [value]="breed.key">{{breed.label}}</option>
 </select>
 
 <select [(ngModel)]="searchOptions.age">
-  <option value="">Any Age</option>
-  <option *ngFor="let age of availableValues.age">{{age}}</option>
+  <option *ngFor="let age of ages" [value]="age.key">{{age.label}}</option>
 </select>
 
 <select [(ngModel)]="searchOptions.sex">
-  <option value="">Any Sex</option>
-  <option *ngFor="let sex of availableValues.sex">{{sex}}</option>
+  <option *ngFor="let sex of sexes" [value]="sex.key">{{sex.label}}</option>
 </select>
 
 <button (click)="findPets()">Find Pets</button>
