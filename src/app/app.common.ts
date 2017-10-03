@@ -3,8 +3,10 @@ import { RouterModule } from './common';
 import { AppRoutes } from './app.routes';
 
 import { MenuModule } from './menu/menu.module';
-import { LoginComponent } from './login/login.component';
 import { SharedModule } from './shared';
+
+import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
 
 export const SHARED_MODULES: any[] = [
   SharedModule,
@@ -14,5 +16,6 @@ export const SHARED_MODULES: any[] = [
 ];
 
 export const COMPONENT_DECLARATIONS: any[] = [
+  AppComponent,
   LoginComponent
 ];

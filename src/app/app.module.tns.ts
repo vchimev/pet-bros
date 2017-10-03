@@ -38,7 +38,6 @@ export function createTranslateLoader(http: Http) {
     ...SHARED_MODULES
   ],
   declarations: [
-    AppComponent,
     ...COMPONENT_DECLARATIONS
   ],
   providers: [
