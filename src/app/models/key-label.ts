@@ -1,4 +1,4 @@
-export class KeyLabel<T> {
+export class KeyLabel<T = string> {
   key: T;
   label: string;
 
