@@ -14,11 +14,13 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^4.2.0",
+    "@angular/cdk": "^2.0.0-beta.11",
     "@angular/common": "^4.2.0",
     "@angular/compiler": "^4.2.0",
     "@angular/core": "^4.2.0",
     "@angular/forms": "^4.2.0",
     "@angular/http": "^4.2.0",
+    "@angular/material": "^2.0.0-beta.11",
     "@angular/platform-browser": "^4.2.0",
     "@angular/platform-browser-dynamic": "^4.2.0",
     "@angular/router": "^4.2.0",
@@ -31,7 +33,7 @@
     "zone.js": "^0.8.5"
   },
   "devDependencies": {
-    "@angular/cli": "1.0.0",
+    "@angular/cli": "^1.4.4",
     "@angular/compiler-cli": "^4.2.0",
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",
@@ -49,6 +51,7 @@
     "protractor": "~5.1.0",
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
-    "typescript": "~2.4.2"
+    "typescript": "~2.3.0",
+    "webpack-sources": "^1.0.1"
   }
 }

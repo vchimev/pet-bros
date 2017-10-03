@@ -1,48 +1,73 @@
 <h1 class="title"
-  [innerText]="'login.title' | translate"></h1>
+[innerText]="'login.title' | translate"></h1>
 
+<md-tab-group class="demo-tab-group">
+  <md-tab label="Login" class="demo-tab">
+    <form #loginForm="ngForm" class="demo-tab-content">
+      <md-form-field class="form-field">
+        <input mdInput
+        placeholder="Email"
+        #emailModel="ngModel"
+        name="email"
+        type="email"
+        [(ngModel)]="email" 
+        required email >
+      </md-form-field> <br/>
+      <md-form-field class="form-field">
+        <input mdInput
+        placeholder="Password"
+        #passwordModel="ngModel"
+        name="password"
+        [(ngModel)]="password"
+        type="password"
+        required>
+      </md-form-field> <br/>
+      
+      <button md-raised-button color="primary"
+        [disabled]="loginForm.invalid"
+        (click)="login(loginForm.valid)"
+        type="submit">Login
+      </button>
+    </form>
+  </md-tab>
 
- <form #loginForm="ngForm"> 
-  <label>Email:</label>
-  <input 
-    #emailModel="ngModel"
-    name="email"
-    [(ngModel)]="email"
-    type="email"
-    required email>
-  <br />
+  <md-tab label="Register" class="demo-tab">
+    <form #registrationForm="ngForm" class="demo-tab-content">
+      <md-form-field class="form-field">
+        <input mdInput
+        placeholder="Email"
+        #emailModel="ngModel"
+        name="email"
+        type="email"
+        [(ngModel)]="email" 
+        required email >
+      </md-form-field> <br/>
+      <md-form-field class="form-field">
+        <input mdInput
+        placeholder="Password"
+        #passwordModel="ngModel"
+        name="password"
+        [(ngModel)]="password"
+        type="password"
+        required>
+      </md-form-field> <br/>
+      
+      <md-form-field class="form-field">
+        <input mdInput placeholder="Name"
+        #emailModel="ngModel"
+        name="displayName"
+        [(ngModel)]="displayName"
+        type="name"
+        required>
+      </md-form-field>
+      <br />
+      
+      <button md-raised-button color="accent"
+        [disabled]="loginForm.invalid"
+        (click)="register(loginForm.valid)"
+        type="submit">Register
+      </button>
 
-  <label>Password:</label>
-  <input 
-    #passwordModel="ngModel"
-    name="password"
-    [(ngModel)]="password"
-    type="password"
-    required>
-  <br />
-
-  <label>Name:</label>
-  <input 
-    #emailModel="ngModel"
-    name="displayName"
-    [(ngModel)]="displayName"
-    type="name"
-    required>
-  <br />
-
-  <button
-    [disabled]="loginForm.invalid"
-    (click)="login(loginForm.valid)"
-    type="submit">Login
-  </button>
-
-  <button 
-    [disabled]="loginForm.invalid"
-    (click)="register(loginForm.valid)"
-    type="submit">Register
-  </button>
-
-  <button (click)="logout()">Logout</button>
-  <!-- <button (click)="update()">Update</button>
-  <button (click)="reset()">Reset</button> -->
- </form>
+    </form>
+  </md-tab>
+</md-tab-group>
