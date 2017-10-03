@@ -11,7 +11,6 @@ import { SHARED_MODULES, COMPONENT_DECLARATIONS } from './app.common';
 
 import { UserService } from './user.service';
 import { NavigationService } from 'app/navigation.service';
-import { FirebaseModule } from './firebase';
 
 Config.PLATFORM_TARGET = Config.PLATFORMS.WEB;
 
@@ -35,7 +34,6 @@ export function createTranslateLoader(http: Http) {
         deps: [Http]
       }
     }),
-    FirebaseModule,
     ...SHARED_MODULES
   ],
   providers: [

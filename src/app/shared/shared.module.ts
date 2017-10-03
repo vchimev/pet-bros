@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '../common';
+import { FirebaseModule } from '../firebase';
 
 import { PetFinderService, API_KEY_TOKEN } from 'petfinder-angular-service';
 
@@ -13,7 +14,8 @@ import { PetFinderService, API_KEY_TOKEN } from 'petfinder-angular-service';
   exports: [
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    FirebaseModule
   ],
   providers: [
     { provide: API_KEY_TOKEN, useValue: '3b3fe2619dfd3c4e94c2d7efd24592e1' },
