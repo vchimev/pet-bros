@@ -1,29 +1,53 @@
 <h1 class="title"
   [innerText]="'shelter-search.title' | translate"></h1>
 
-  <label [for]="locationInput">location:</label>
-  <input #locationInput [(ngModel)]="location" />
+<div class="form-container">
+  <md-form-field class="form-input-field">
+    <input mdInput
+      placeholder="Location"
+      [(ngModel)]="location">
+  </md-form-field> <br/>
+
+  <md-form-field class="form-input-field">
+    <input mdInput
+      placeholder="Shelter Name"
+      [(ngModel)]="name">
+  </md-form-field> <br/>
+
+  <button md-raised-button
+    (click)="findShelters()"
+    color="primary">
+    Find Shelters
+  </button>
+</div>
   <br />
+<div class="form-container">
+
+  <md-form-field class="form-input-field">
+    <input mdInput
+      placeholder="Location"
+      [(ngModel)]="location">
+  </md-form-field> <br/>
+
+  <md-select placeholder="Animal Type" [(ngModel)]="animal" (change)="refreshBreeds()" class="form-select-field">
+    <md-option *ngFor="let animal of animals"
+      [value]="animal.key">
+      {{animal.label}}
+    </md-option>
+  </md-select> <br/>
   
-  <label [for]="nameInput">name:</label>
-  <input #nameInput [(ngModel)]="name" />
-  <br />
-  
-  <button (click)="findShelters()">Find Shelters</button>
+  <md-select placeholder="Breed" [(ngModel)]="breed" class="form-select-field">
+    <md-option *ngFor="let breed of breeds"
+      [value]=breed.key>
+      {{breed.label}}
+    </md-option>
+  </md-select>
 
   <br />
-  <br />
-{{animal}}
-  <select [(ngModel)]="animal" (change)="refreshBreeds()">
-    <option value="">Any Animal</option>
-    <option *ngFor="let animal of availableValues.animal">{{animal}}</option>
-  </select>
-  
-  <select [(ngModel)]="breed">
-    <option value="">Any Breed</option>
-    <option *ngFor="let breed of breeds">{{breed}}</option>
-  </select>
 
-  <br />
-  <button (click)="findSheltersByBreed()">Find Shelters by Breed</button>
-  
+  <button md-raised-button
+    (click)="findSheltersByBreed()"
+    color="primary">
+    Find Shelters by Breed
+  </button>
+</div>

@@ -1,3 +1,13 @@
-<seed-menu-item *ngFor="let item of items"
-    [item]="item"></seed-menu-item>
-{{(user$ | async)?.displayName}}
+<md-toolbar color="primary">
+  <seed-menu-item 
+    *ngFor="let item of items"
+    [item]="item"
+    class="nav-button">
+  </seed-menu-item>
+  
+  <button *ngIf="(user$ | async)"
+   md-button
+   (click)="logout()">
+   Sign Out {{(user$ | async)?.displayName}}
+  </button>
+</md-toolbar>

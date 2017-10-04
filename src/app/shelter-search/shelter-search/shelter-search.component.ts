@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationService } from '../../navigation.service';
 import { PetFinderService, AvailableValues } from 'petfinder-angular-service';
+import { KeyLabel } from '../../models/key-label';
 
 @Component({
   moduleId: module.id,
@@ -8,24 +9,31 @@ import { PetFinderService, AvailableValues } from 'petfinder-angular-service';
   templateUrl: './shelter-search.component.html',
   styleUrls: ['./shelter-search.component.scss']
 })
-export class ShelterSearchComponent {
+export class ShelterSearchComponent implements OnInit {
   public location = 'Boston, MA';
   public name = '';
 
   public availableValues = AvailableValues;
   public animal = '';
   public breed = '';
-  public breeds: string[] = [];
+
+  public animals: KeyLabel[];
+  public breeds: KeyLabel[];
 
   constructor(
     private navigation: NavigationService,
     private petfinderService: PetFinderService) { }
 
+  ngOnInit() {
+    this.animals = KeyLabel.mapAvailableValues(AvailableValues.animal, 'Any Animal');
+    this.breeds = KeyLabel.mapAvailableValues([], 'Any Breed');
+  }
+
   refreshBreeds() {
-    this.breed = null;
+    this.breed = '';
     if (this.animal) {
       this.petfinderService.breedList(this.animal)
-      .then(breeds => this.breeds = breeds);
+      .then(breeds => this.breeds = KeyLabel.mapAvailableValues(breeds, 'Any breed'));
     } else {
       this.breeds = [];
     }

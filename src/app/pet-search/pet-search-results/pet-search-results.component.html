@@ -1,7 +1,7 @@
 <h1 class="title"
   [innerText]="'pet-search-results.title' | translate"></h1>
 
-<div>
+<div class="pet-card-list">
   <petbros-pet
     *ngFor="let pet of pets"
     [pet]="pet">

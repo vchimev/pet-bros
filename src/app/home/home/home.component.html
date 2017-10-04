@@ -1,14 +1,24 @@
-
-<div>
-  <h2 class="bar">Favourite Pets</h2>
-  <petbros-pet
-    *ngFor="let pet of favouritePets$ | async"
-    [pet]="pet">
-  </petbros-pet>
-
-  <h2 class="bar">Favourite Shelters</h2>
-  <petbros-shelter
-    *ngFor="let shelter of favouriteShelters$ | async"
-    [shelter]="shelter">
-  </petbros-shelter>
-</div>
+<md-tab-group class="home-tab-group">
+  <md-tab label="Favourite Pets">
+    <!-- <div class="tab-content"> -->
+    <div class="pet-card-list">
+      <!-- <h2 class="bar">Favourite Pets</h2> -->
+      <petbros-pet
+        *ngFor="let pet of favouritePets$ | async"
+        [pet]="pet">
+      </petbros-pet>
+    </div>
+    <!-- </div> -->
+  </md-tab>
+  
+  <md-tab label="Favourite Shelters">
+    <div class="tab-content">
+        <!-- <h2 class="bar">Favourite Shelters</h2> -->
+        <petbros-shelter
+        *ngFor="let shelter of favouriteShelters$ | async"
+        [shelter]="shelter">
+      </petbros-shelter>
+    </div>
+  </md-tab>
+</md-tab-group>
+  

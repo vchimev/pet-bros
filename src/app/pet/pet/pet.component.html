@@ -1,8 +1,15 @@
-<div>
-  <div [routerLink]="['/pet', pet.id]">
-    <h4>{{pet.name}}</h4>
-    <img [src]="pet.media.getFirstImage(3, './assets/images/generic-pet.jpg')">
-  </div>
-  <button *ngIf="!favourite" (click)="addToFavourites()">❤️</button>
-  <button *ngIf="favourite" (click)="removeFromFavourites()">💔</button>
-</div>
+
+<md-card class="pet-card" >
+  <md-card-title [routerLink]="['/pet', pet.id]" color="accent">{{pet.name}}</md-card-title>
+  <img [routerLink]="['/pet', pet.id]" md-card-image [src]="pet.media.getFirstImage(3, './assets/images/generic-pet.jpg')">
+  <md-card-actions>
+    <button *ngIf="!favourite"  md-button (click)="addToFavourites()">
+      <md-icon color="warn">favorite</md-icon>
+      <span>ADD TO FAVOURITES</span>
+    </button>
+    <button *ngIf="favourite"  md-button (click)="removeFromFavourites()">
+      <md-icon color="warn">favorite_border</md-icon>
+      <span>REMOVE FROM FAVOURITES</span>
+    </button>
+  </md-card-actions>
+</md-card>

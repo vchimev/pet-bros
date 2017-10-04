@@ -10,7 +10,7 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue.
 $candy-app-primary: mat-palette($mat-indigo);
-$candy-app-accent:  mat-palette($mat-pink, A200, A100, A400);
+$candy-app-accent:  mat-palette($mat-green, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $candy-app-warn:    mat-palette($mat-red);
@@ -37,4 +37,56 @@ body {
   width: 100%;
   background-color: #2196F3;
   color: white;
+}
+
+.tab-group {
+  border: 1px solid #e8e8e8;
+  width: 400px;
+}
+
+.tab-content {
+  padding: 16px;
+}
+
+.form-container {
+  border: 1px solid #e8e8e8;
+  width: 400px;
+  padding: 16px;
+}
+
+.form-input-field {
+  width: 100%;
+}
+
+.form-select-field {
+  width: 100%;
+  margin: 0 0 20px 0;
+}
+
+.pet-card {
+  width: 250px;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  img {
+    width: 300px;
+    max-height: 300px;
+  }
+
+
+  md-card-title {
+    width: 200px;
+  }
+
+  md-card-actions {
+    align-self: center;
+  }
+}
+
+.pet-card-list {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
