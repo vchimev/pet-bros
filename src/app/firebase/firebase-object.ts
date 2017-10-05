@@ -1,22 +1,21 @@
 import { Observable } from 'rxjs/Observable';
-import { FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireObject } from 'angularfire2/database';
 
-export class FirebaseObject<T> extends Observable<T> {
-  constructor(private firebaseObservable: FirebaseObjectObservable<T>) {
-    super(subscriber => {
-      const subscription = firebaseObservable.subscribe(subscriber);
-
-      return () => subscription.unsubscribe();
-    });
+export class FirebaseObject<T> {
+  constructor(private firebaseObject: AngularFireObject<T>) {
   }
 
-  async set(value: T): Promise<void> {
-    return await this.firebaseObservable.set(value);
+  public valueChanges(): Observable<T> {
+    return this.firebaseObject.valueChanges();
   }
-  async update(value: T): Promise<void> {
-    return await this.firebaseObservable.update(value);
+
+  public async set(value: T): Promise<void> {
+    return await this.firebaseObject.set(value);
   }
-  async remove(): Promise<void> {
-    return await this.firebaseObservable.remove();
+  public async update(value: T): Promise<void> {
+    return await this.firebaseObject.update(value);
+  }
+  public async remove(): Promise<void> {
+    return await this.firebaseObject.remove();
   }
 }

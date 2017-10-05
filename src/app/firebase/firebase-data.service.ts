@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscriber } from 'rxjs/Subscriber';
 
-import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireObject, AngularFireList } from 'angularfire2/database';
 
 import { FirebaseDataServiceCommon } from './firebase.common';
 import { FirebaseObject } from './firebase-object';
@@ -14,15 +14,15 @@ export class FirebaseDataService implements FirebaseDataServiceCommon {
   constructor(private af: AngularFireDatabase) {
   }
 
-  object<T>(path: string): FirebaseObject<T> {
-    const firebaseObject = this.af.object(path);
+  public object<T>(path: string): FirebaseObject<T> {
+    const firebaseObject: AngularFireObject<T> = this.af.object(path);
 
-    return new FirebaseObject(firebaseObject);
+    return new FirebaseObject<T>(firebaseObject);
   }
 
-  list<T>(path): FirebaseList<T> {
-    const firebaseList = this.af.list(path);
+  public list<T>(path): FirebaseList<T> {
+    const firebaseList: AngularFireList<T> = this.af.list(path);
 
-    return new FirebaseList(firebaseList);
+    return new FirebaseList<T>(firebaseList);
   }
 }

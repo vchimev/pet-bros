@@ -4,13 +4,12 @@ import { Subscription } from 'rxjs/Subscription';
 
 import firebase = require('nativescript-plugin-firebase');
 
-export class FirebaseObject<T> extends Observable<T> {
+export class FirebaseObject<T> {
   constructor(private observable: Observable<T>, private path: string) {
-    super(subscriber => {
-      const subscription = observable.subscribe(subscriber);
+  }
 
-      return () => subscription.unsubscribe();
-    });
+  public valueChanges(): Observable<T> {
+    return this.observable;
   }
 
   public set(value: T): Promise<void> {

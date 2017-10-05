@@ -1,25 +1,24 @@
 import { Observable } from 'rxjs/Observable';
-import { FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireList } from 'angularfire2/database';
 
-export class FirebaseList<T> extends Observable<T[]> {
-  constructor(private firebaseObservable: FirebaseListObservable<T[]>) {
-    super(subscriber => {
-      const subscription = firebaseObservable.subscribe(item => subscriber.next(item));
-
-      return () => subscription.unsubscribe();
-    });
+export class FirebaseList<T> {
+  constructor(private firebaseList: AngularFireList<T>) {
   }
 
-  async set(key: string, value: T): Promise<void> {
-    return await this.firebaseObservable.set(key, value);
+  public valueChanges(): Observable<T[]> {
+    return this.firebaseList.valueChanges();
   }
-  async update(key: string, value: T): Promise<void> {
-    return await this.firebaseObservable.update(key, value);
+
+  public async set(key: string, value: T): Promise<void> {
+    return await this.firebaseList.set(key, value);
   }
-  async remove(key?: string): Promise<void> {
-    return await this.firebaseObservable.remove(key);
+  public async update(key: string, value: T): Promise<void> {
+    return await this.firebaseList.update(key, value);
   }
-  async push(value: T): Promise<any> {
-    return await this.firebaseObservable.push(value);
+  public async remove(key?: string): Promise<void> {
+    return await this.firebaseList.remove(key);
+  }
+  public async push(value: T): Promise<any> {
+    return await this.firebaseList.push(value);
   }
 }

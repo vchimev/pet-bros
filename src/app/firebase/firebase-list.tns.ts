@@ -2,14 +2,20 @@ import { Observable } from 'rxjs/Observable';
 import firebase = require('nativescript-plugin-firebase');
 import { FBData } from 'nativescript-plugin-firebase';
 
-export class FirebaseList<T> extends Observable<T[]> {
+export class FirebaseList<T> {
   private items: Map<string, T>;
+  private valueChanges$: Observable<T[]>;
+
 
   constructor(private observable: Observable<FBData>, private path: string) {
-    super(subscriber => {
+    this.prepareValueChangesObservable();
+  }
+
+  private prepareValueChangesObservable() {
+    this.valueChanges$ = new Observable<T[]>((subscriber => {
       this.items = new Map<string, T>();
 
-      const subscription = observable.subscribe(item => {
+      const subscription = this.observable.subscribe(item => {
         switch (item.type) {
           case 'ChildAdded':
           case 'ChildChanged':
@@ -30,7 +36,12 @@ export class FirebaseList<T> extends Observable<T[]> {
         this.items.clear();
         subscription.unsubscribe();
       };
-    });
+    }))
+    .share();
+  }
+
+  public valueChanges(): Observable<T[]> {
+    return this.valueChanges$;
   }
 
   public set(key: string, value: T): Promise<void> {

@@ -36,7 +36,7 @@ export class FirebaseDataService implements FirebaseDataServiceCommon {
   }
 
   public list<T>(path: string): FirebaseList<T> {
-    const observable: Observable<FBData> = this.prepareListObservable(path);
+    const observable: Observable<FBData> = this.prepareListObservable(path).share();
 
     return new FirebaseList(observable, path);
   }
