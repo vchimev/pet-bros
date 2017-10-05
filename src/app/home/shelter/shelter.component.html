@@ -1,6 +1,9 @@
-<div [routerLink]="['/shelter', shelter.id]">
-  <div>
-    <h4>🏠 {{shelter.name}}</h4>
-  </div>
-  <button (click)="removeFromFavourites()">💔</button>
-</div>
+<md-card class="shelter-card" >
+  <md-card-title [routerLink]="['/shelter', shelter.id]" color="accent">{{shelter.name}}</md-card-title>
+  <md-card-actions>
+    <button md-button (click)="removeFromFavourites()">
+      <md-icon color="warn">favorite_border</md-icon>
+      <span>REMOVE FROM FAVOURITES</span>
+    </button>
+  </md-card-actions>
+</md-card>

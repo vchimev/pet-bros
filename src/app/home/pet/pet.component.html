@@ -1,4 +1,3 @@
-
 <md-card class="pet-card" >
   <md-card-title [routerLink]="['/pet', pet.id]" color="accent">{{pet.name}}</md-card-title>
   <img [routerLink]="['/pet', pet.id]" md-card-image [src]="pet.img">
@@ -9,11 +8,3 @@
     </button>
   </md-card-actions>
 </md-card>
-
-<!-- <div [routerLink]="['/pet', pet.id]">
-  <div>
-    <h4>{{pet.name}}</h4>
-    <img [src]="pet.img">
-  </div>
-  <button (click)="removeFromFavourites()">💔</button>
-</div> -->

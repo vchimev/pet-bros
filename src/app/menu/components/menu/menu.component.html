@@ -7,7 +7,8 @@
   
   <button *ngIf="(user$ | async)"
    md-button
-   (click)="logout()">
+   (click)="logout()"
+   color="warn">
    Sign Out {{(user$ | async)?.displayName}}
   </button>
 </md-toolbar>

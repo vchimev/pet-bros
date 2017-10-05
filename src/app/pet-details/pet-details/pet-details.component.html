@@ -1,8 +1,21 @@
-<div>
-<h3>{{pet?.name}}</h3>
-<img [src]="pet?.media.getFirstImage(3, './assets/images/generic-pet.jpg')" />
-<h5>{{pet?.description}}</h5>
+<md-card *ngIf="pet" class="pet-card" >
+  <md-card-title>{{pet.name}}</md-card-title>
+  
+  <img [src]="pet.media.getFirstImage(4, './assets/images/generic-pet.jpg')" />
 
-<button *ngIf="!favourite" (click)="addToFavourites()">❤️</button>
-<button *ngIf="favourite" (click)="removeFromFavourites()">💔</button>
-</div>
+  <!-- Convert this to a galery -->
+  <!-- <img *ngFor="let media of pet.media.getImages(4)" [src]="media"/> -->
+
+  <span>{{pet.description}}</span>
+
+  <md-card-actions>
+    <button *ngIf="!favourite" md-button (click)="addToFavourites()">
+      <md-icon color="warn">favorite</md-icon>
+      <span>ADD TO FAVOURITES</span>
+    </button>
+    <button *ngIf="favourite" md-button (click)="removeFromFavourites()">
+      <md-icon color="warn">favorite_border</md-icon>
+      <span>REMOVE FROM FAVOURITES</span>
+    </button>
+  </md-card-actions>
+</md-card>

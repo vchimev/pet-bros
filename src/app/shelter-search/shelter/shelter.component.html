@@ -1,17 +1,26 @@
-<div class="shelter">
-  <div [routerLink]="['/shelter', shelter.id]">
-    <h2>{{shelter.name}}</h2>
+<md-card class="shelter-card" >
+  <!-- <md-card-header> -->
+    <md-card-title [routerLink]="['/shelter', shelter.id]" color="accent">{{shelter.name}}</md-card-title>
+  <!-- </md-card-header> -->
+  <md-card-content [routerLink]="['/shelter', shelter.id]">
+    <h5>Phone: {{shelter.phone}}</h5>
+    <h5>Email: {{shelter.email}}</h5>
 
-    <h4>Phone: {{shelter.phone}}</h4>
-    <h4>Email: {{shelter.email}}</h4>
-
-    <h3><b>Address</b></h3>
-    <h5>{{shelter.address1}}</h5>
-    <h5>{{shelter.address2}}</h5>
-    <h5>{{shelter.city}}, {{shelter.state}}</h5>
+    <h4><b>Address</b></h4>
+    <h6>{{shelter.address1}}</h6>
+    <h6>{{shelter.address2}}</h6>
+    <h6>{{shelter.city}}, {{shelter.state}}</h6>
 
     <h4>Location: lat={{shelter.latitude}} lon={{shelter.longitude}}</h4>
-  </div>
-  <button *ngIf="!favourite" (click)="addToFavourites()">❤️</button>
-  <button *ngIf="favourite" (click)="removeFromFavourites()">💔</button>
-</div>
+  </md-card-content>
+  <md-card-actions>
+    <button *ngIf="!favourite" md-button (click)="addToFavourites()">
+      <md-icon color="warn">favorite</md-icon>
+      <span>ADD TO FAVOURITES</span>
+    </button>
+    <button *ngIf="favourite" md-button (click)="removeFromFavourites()">
+      <md-icon color="warn">favorite_border</md-icon>
+      <span>REMOVE FROM FAVOURITES</span>
+    </button>
+  </md-card-actions>
+</md-card>

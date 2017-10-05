@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { MdInputModule, MdSelectModule, MdButtonModule, MdCardModule } from '@angular/material';
+import { MdInputModule, MdSelectModule, MdButtonModule, MdCardModule, MdIconModule } from '@angular/material';
 
 import { SHARED_MODULES, COMPONENT_DECLARATIONS } from './shelter-search.common';
 
@@ -9,7 +9,8 @@ import { SHARED_MODULES, COMPONENT_DECLARATIONS } from './shelter-search.common'
     MdInputModule,
     MdSelectModule,
     MdButtonModule,
-    MdCardModule
+    MdCardModule,
+    MdIconModule
   ],
   declarations: [
     ...COMPONENT_DECLARATIONS

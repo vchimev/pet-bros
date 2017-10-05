@@ -1,8 +1,33 @@
 <h1 class="title"
   [innerText]="'shelter-details.title' | translate"></h1>
 
+<md-card *ngIf="shelter" class="shelter-card" >
+  <md-card-title>{{shelter.name}}</md-card-title>
+  <md-card-content>
+    <h5>Phone: {{shelter.phone}}</h5>
+    <h5>Email: {{shelter.email}}</h5>
+
+    <h4><b>Address</b></h4>
+    <h6>{{shelter.address1}}</h6>
+    <h6>{{shelter.address2}}</h6>
+    <h6>{{shelter.city}}, {{shelter.state}}</h6>
+
+    <h4>Location: lat={{shelter.latitude}} lon={{shelter.longitude}}</h4>
+  </md-card-content>
+  <md-card-actions>
+    <button *ngIf="!favourite" md-button (click)="addToFavourites()">
+      <md-icon color="warn">favorite</md-icon>
+      <span>ADD TO FAVOURITES</span>
+    </button>
+    <button *ngIf="favourite" md-button (click)="removeFromFavourites()">
+      <md-icon color="warn">favorite_border</md-icon>
+      <span>REMOVE FROM FAVOURITES</span>
+    </button>
+  </md-card-actions>
+</md-card>
+
 <div class="shelter" *ngIf="shelter">
-  <h2>{{shelter.name}}</h2>
+  <!-- <h2>{{shelter.name}}</h2>
 
   <h4>Phone: {{shelter.phone}}</h4>
   <h4>Email: {{shelter.email}}</h4>
@@ -14,7 +39,7 @@
 
   <h4>Location: lat={{shelter.latitude}} lon={{shelter.longitude}}</h4>
   <button *ngIf="!favourite" (click)="addToFavourites()">❤️</button>
-  <button *ngIf="favourite" (click)="removeFromFavourites()">💔</button>
+  <button *ngIf="favourite" (click)="removeFromFavourites()">💔</button> -->
 
   <h2 class="bar">Shelter Pets:</h2>
   <petbros-shelter-pets [shelterId]="shelter.id"></petbros-shelter-pets>

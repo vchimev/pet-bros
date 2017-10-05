@@ -63,6 +63,11 @@ body {
   margin: 0 0 20px 0;
 }
 
+.shelter-card {
+  width: 300px;
+  margin: 5px;
+}
+
 .pet-card {
   width: 250px;
   margin: 5px;
@@ -85,7 +90,7 @@ body {
   }
 }
 
-.pet-card-list {
+.pet-card-list, .shelter-card-list {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;

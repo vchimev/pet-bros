@@ -1,7 +1,7 @@
 <h1 class="title"
   [innerText]="'shelter-search-results.title' | translate"></h1>
 
-<div>
+<div class="shelter-card-list">
   <petbros-shelter
     *ngFor="let shelter of shelters"
     [shelter]="shelter">
