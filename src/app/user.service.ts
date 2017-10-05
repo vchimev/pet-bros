@@ -28,7 +28,7 @@ export class UserService {
   public get favouritePets$(): Observable<PetBasic[]> {
     return this.user$.switchMap(user => {
       if (user) {
-        return this.firebaseDataService.list<PetBasic>(`/users/${user.uid}/pets`);
+        return this.firebaseDataService.list<PetBasic>(`/users/${user.uid}/pets`).valueChanges();
       } else {
         // fallback
         return new BehaviorSubject([]);
@@ -43,7 +43,7 @@ export class UserService {
   public get favouriteShelters$(): Observable<any[]> {
     return this.user$.switchMap(user => {
       if (user) {
-        return this.firebaseDataService.list<any>(`/users/${user.uid}/shelters`);
+        return this.firebaseDataService.list<any>(`/users/${user.uid}/shelters`).valueChanges();
       } else {
         return new BehaviorSubject([]);
       }
@@ -114,9 +114,9 @@ export class UserService {
     if (this.isLoggedIn()) {
       this._favouriteShelters.update(shelter.id, {
         id: shelter.id,
-        name: shelter.name,
-        phone: shelter.phone,
-        email: shelter.email,
+        name: shelter.name || '',
+        phone: shelter.phone || '',
+        email: shelter.email || '',
       });
     }
   }
