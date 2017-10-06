@@ -1,15 +1,15 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
-import { MdTabsModule, MdCardModule, MdIconModule, MdButtonModule } from '@angular/material';
+import { MatTabsModule, MatCardModule, MatIconModule, MatButtonModule } from '@angular/material';
 
 import { SHARED_MODULES, COMPONENT_DECLARATIONS } from './home.common';
 
 @NgModule({
   imports: [
     ...SHARED_MODULES,
-    MdTabsModule,
-    MdCardModule,
-    MdIconModule,
-    MdButtonModule
+    MatTabsModule,
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule
   ],
   declarations: [
     ...COMPONENT_DECLARATIONS

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Http, HttpModule } from '@angular/http';
-import { MdButtonModule, MdInputModule, MdSelectModule, MdFormFieldModule, MdTabsModule } from '@angular/material';
+import { MatButtonModule, MatInputModule, MatSelectModule, MatFormFieldModule, MatTabsModule } from '@angular/material';
 // vendor dependencies
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -35,11 +35,11 @@ export function createTranslateLoader(http: Http) {
       }
     }),
     ...SHARED_MODULES,
-    MdButtonModule,
-    MdInputModule,
-    MdSelectModule,
-    MdFormFieldModule,
-    MdTabsModule
+    MatButtonModule,
+    MatInputModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatTabsModule
   ],
   providers: [
     UserService,

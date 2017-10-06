@@ -1,4 +1,4 @@
-<md-toolbar color="primary">
+<mat-toolbar color="primary">
   <seed-menu-item 
     *ngFor="let item of items"
     [item]="item"
@@ -6,9 +6,9 @@
   </seed-menu-item>
   
   <button *ngIf="(user$ | async)"
-   md-button
+   mat-button
    (click)="logout()"
    color="warn">
    Sign Out {{(user$ | async)?.displayName}}
   </button>
-</md-toolbar>
+</mat-toolbar>

@@ -2,19 +2,19 @@
   [innerText]="'shelter-search.title' | translate"></h1>
 
 <div class="form-container">
-  <md-form-field class="form-input-field">
-    <input mdInput
+  <mat-form-field class="form-input-field">
+    <input matInput
       placeholder="Location"
       [(ngModel)]="location">
-  </md-form-field> <br/>
+  </mat-form-field> <br/>
 
-  <md-form-field class="form-input-field">
-    <input mdInput
+  <mat-form-field class="form-input-field">
+    <input matInput
       placeholder="Shelter Name"
       [(ngModel)]="name">
-  </md-form-field> <br/>
+  </mat-form-field> <br/>
 
-  <button md-raised-button
+  <button mat-raised-button
     (click)="findShelters()"
     color="primary">
     Find Shelters
@@ -23,29 +23,29 @@
   <br />
 <div class="form-container">
 
-  <md-form-field class="form-input-field">
-    <input mdInput
+  <mat-form-field class="form-input-field">
+    <input matInput
       placeholder="Location"
       [(ngModel)]="location">
-  </md-form-field> <br/>
+  </mat-form-field> <br/>
 
-  <md-select placeholder="Animal Type" [(ngModel)]="animal" (change)="refreshBreeds()" class="form-select-field">
-    <md-option *ngFor="let animal of animals"
+  <mat-select placeholder="Animal Type" [(ngModel)]="animal" (change)="refreshBreeds()" class="form-select-field">
+    <mat-option *ngFor="let animal of animals"
       [value]="animal.key">
       {{animal.label}}
-    </md-option>
-  </md-select> <br/>
+    </mat-option>
+  </mat-select> <br/>
   
-  <md-select placeholder="Breed" [(ngModel)]="breed" class="form-select-field">
-    <md-option *ngFor="let breed of breeds"
+  <mat-select placeholder="Breed" [(ngModel)]="breed" class="form-select-field">
+    <mat-option *ngFor="let breed of breeds"
       [value]=breed.key>
       {{breed.label}}
-    </md-option>
-  </md-select>
+    </mat-option>
+  </mat-select>
 
   <br />
 
-  <button md-raised-button
+  <button mat-raised-button
     (click)="findSheltersByBreed()"
     color="primary">
     Find Shelters by Breed

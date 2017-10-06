@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
-import { MdCardModule, MdButtonModule, MdIconModule } from '@angular/material';
+import { MatCardModule, MatButtonModule, MatIconModule } from '@angular/material';
 
 import { SHARED_MODULES, COMPONENT_DECLARATIONS } from './pet.common';
 @NgModule({
   imports: [
     ...SHARED_MODULES,
-    MdCardModule,
-    MdButtonModule,
-    MdIconModule
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule
   ],
   exports: [
     ...COMPONENT_DECLARATIONS,

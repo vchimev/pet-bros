@@ -1,10 +1,10 @@
-<md-card class="pet-card" >
-  <md-card-title [routerLink]="['/pet', pet.id]" color="accent">{{pet.name}}</md-card-title>
-  <img [routerLink]="['/pet', pet.id]" md-card-image [src]="pet.img">
-  <md-card-actions>
-    <button md-button (click)="removeFromFavourites()">
-      <md-icon color="warn">favorite_border</md-icon>
+<mat-card class="pet-card" >
+  <mat-card-title [routerLink]="['/pet', pet.id]" color="accent">{{pet.name}}</mat-card-title>
+  <img [routerLink]="['/pet', pet.id]" mat-card-image [src]="pet.img">
+  <mat-card-actions>
+    <button mat-button (click)="removeFromFavourites()">
+      <mat-icon color="warn">favorite_border</mat-icon>
       <span>REMOVE FROM FAVOURITES</span>
     </button>
-  </md-card-actions>
-</md-card>
+  </mat-card-actions>
+</mat-card>

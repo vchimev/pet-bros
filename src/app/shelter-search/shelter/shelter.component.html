@@ -1,8 +1,8 @@
-<md-card class="shelter-card" >
-  <!-- <md-card-header> -->
-    <md-card-title [routerLink]="['/shelter', shelter.id]" color="accent">{{shelter.name}}</md-card-title>
-  <!-- </md-card-header> -->
-  <md-card-content [routerLink]="['/shelter', shelter.id]">
+<mat-card class="shelter-card" >
+  <!-- <mat-card-header> -->
+    <mat-card-title [routerLink]="['/shelter', shelter.id]" color="accent">{{shelter.name}}</mat-card-title>
+  <!-- </mat-card-header> -->
+  <mat-card-content [routerLink]="['/shelter', shelter.id]">
     <h5>Phone: {{shelter.phone}}</h5>
     <h5>Email: {{shelter.email}}</h5>
 
@@ -12,15 +12,15 @@
     <h6>{{shelter.city}}, {{shelter.state}}</h6>
 
     <h4>Location: lat={{shelter.latitude}} lon={{shelter.longitude}}</h4>
-  </md-card-content>
-  <md-card-actions>
-    <button *ngIf="!favourite" md-button (click)="addToFavourites()">
-      <md-icon color="warn">favorite</md-icon>
+  </mat-card-content>
+  <mat-card-actions>
+    <button *ngIf="!favourite" mat-button (click)="addToFavourites()">
+      <mat-icon color="warn">favorite</mat-icon>
       <span>ADD TO FAVOURITES</span>
     </button>
-    <button *ngIf="favourite" md-button (click)="removeFromFavourites()">
-      <md-icon color="warn">favorite_border</md-icon>
+    <button *ngIf="favourite" mat-button (click)="removeFromFavourites()">
+      <mat-icon color="warn">favorite_border</mat-icon>
       <span>REMOVE FROM FAVOURITES</span>
     </button>
-  </md-card-actions>
-</md-card>
+  </mat-card-actions>
+</mat-card>

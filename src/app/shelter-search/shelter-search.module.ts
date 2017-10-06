@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
-import { MdInputModule, MdSelectModule, MdButtonModule, MdCardModule, MdIconModule } from '@angular/material';
+import { MatInputModule, MatSelectModule, MatButtonModule, MatCardModule, MatIconModule } from '@angular/material';
 
 import { SHARED_MODULES, COMPONENT_DECLARATIONS } from './shelter-search.common';
 
 @NgModule({
   imports: [
     ...SHARED_MODULES,
-    MdInputModule,
-    MdSelectModule,
-    MdButtonModule,
-    MdCardModule,
-    MdIconModule
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule
   ],
   declarations: [
     ...COMPONENT_DECLARATIONS

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MdToolbarModule, MdButtonModule } from '@angular/material';
+import { MatToolbarModule, MatButtonModule } from '@angular/material';
 // app
 import { SHARED_MODULES, COMPONENT_DECLARATIONS, COMPONENT_EXPORTS } from './menu.common';
 
@@ -8,8 +8,8 @@ import { SHARED_MODULES, COMPONENT_DECLARATIONS, COMPONENT_EXPORTS } from './men
     imports: [
         ...SHARED_MODULES,
         RouterModule,
-        MdToolbarModule,
-        MdButtonModule
+        MatToolbarModule,
+        MatButtonModule
     ],
     declarations: [
         ...COMPONENT_DECLARATIONS

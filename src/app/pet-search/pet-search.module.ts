@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
-import { MdInputModule, MdSelectModule, MdButtonModule } from '@angular/material';
+import { MatInputModule, MatSelectModule, MatButtonModule } from '@angular/material';
 
 import { SHARED_MODULES, COMPONENT_DECLARATIONS } from './pet-search.common';
 
 @NgModule({
   imports: [
     ...SHARED_MODULES,
-    MdInputModule,
-    MdSelectModule,
-    MdButtonModule
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule
   ],
   declarations: [
     ...COMPONENT_DECLARATIONS

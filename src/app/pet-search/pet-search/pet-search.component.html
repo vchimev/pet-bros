@@ -3,41 +3,41 @@
 
 <div class="form-container">
 
-  <md-form-field class="form-input-field">
-    <input mdInput
+  <mat-form-field class="form-input-field">
+    <input matInput
       placeholder="Location"
       [(ngModel)]="searchOptions.location">
-  </md-form-field> <br/>
+  </mat-form-field> <br/>
 
-  <md-select placeholder="Animal Type" [(ngModel)]="searchOptions.animal" (change)="refreshBreeds()" class="form-select-field">
-    <md-option *ngFor="let animal of animals"
+  <mat-select placeholder="Animal Type" [(ngModel)]="searchOptions.animal" (change)="refreshBreeds()" class="form-select-field">
+    <mat-option *ngFor="let animal of animals"
       [value]="animal.key">
       {{animal.label}}
-    </md-option>
-  </md-select> <br/>
+    </mat-option>
+  </mat-select> <br/>
 
-  <md-select placeholder="Breed" [(ngModel)]="searchOptions.breed" class="form-select-field">
-    <md-option *ngFor="let breed of breeds"
+  <mat-select placeholder="Breed" [(ngModel)]="searchOptions.breed" class="form-select-field">
+    <mat-option *ngFor="let breed of breeds"
       [value]="breed.key">
       {{breed.label}}
-    </md-option>
-  </md-select> <br/>
+    </mat-option>
+  </mat-select> <br/>
 
-  <md-select placeholder="Age" [(ngModel)]="searchOptions.age" class="form-select-field">
-    <md-option *ngFor="let age of ages"
+  <mat-select placeholder="Age" [(ngModel)]="searchOptions.age" class="form-select-field">
+    <mat-option *ngFor="let age of ages"
       [value]="age.key">
       {{age.label}}
-    </md-option>
-  </md-select> <br/>
+    </mat-option>
+  </mat-select> <br/>
 
-  <md-select placeholder="Sex" [(ngModel)]="searchOptions.sex" class="form-select-field">
-    <md-option *ngFor="let sex of sexes"
+  <mat-select placeholder="Sex" [(ngModel)]="searchOptions.sex" class="form-select-field">
+    <mat-option *ngFor="let sex of sexes"
       [value]="sex.key">
       {{sex.label}}
-    </md-option>
-  </md-select> <br/>
+    </mat-option>
+  </mat-select> <br/>
 
-  <button md-raised-button
+  <button mat-raised-button
     (click)="findPets()"
     color="primary">
     Find Pets

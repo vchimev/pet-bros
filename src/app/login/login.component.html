@@ -1,72 +1,72 @@
 <h1 class="title"
 [innerText]="'login.title' | translate"></h1>
 
-<md-tab-group class="tab-group">
-  <md-tab label="Login">
+<mat-tab-group class="tab-group">
+  <mat-tab label="Login">
     <form #loginForm="ngForm" class="tab-content">
-      <md-form-field class="form-input-field">
-        <input mdInput
+      <mat-form-field class="form-input-field">
+        <input matInput
         placeholder="Email"
         #emailModel="ngModel"
         name="email"
         type="email"
         [(ngModel)]="email" 
         required email >
-      </md-form-field> <br/>
-      <md-form-field class="form-input-field">
-        <input mdInput
+      </mat-form-field> <br/>
+      <mat-form-field class="form-input-field">
+        <input matInput
         placeholder="Password"
         #passwordModel="ngModel"
         name="password"
         [(ngModel)]="password"
         type="password"
         required>
-      </md-form-field> <br/>
+      </mat-form-field> <br/>
       
-      <button md-raised-button color="primary"
+      <button mat-raised-button color="primary"
         [disabled]="loginForm.invalid"
         (click)="login(loginForm.valid)"
         type="submit">Login
       </button>
     </form>
-  </md-tab>
+  </mat-tab>
 
-  <md-tab label="Register">
+  <mat-tab label="Register">
     <form #registrationForm="ngForm" class="tab-content">
-      <md-form-field class="form-input-field">
-        <input mdInput
+      <mat-form-field class="form-input-field">
+        <input matInput
         placeholder="Email"
         #emailModel="ngModel"
         name="email"
         type="email"
         [(ngModel)]="email" 
         required email >
-      </md-form-field> <br/>
-      <md-form-field class="form-input-field">
-        <input mdInput
+      </mat-form-field> <br/>
+      <mat-form-field class="form-input-field">
+        <input matInput
         placeholder="Password"
         #passwordModel="ngModel"
         name="password"
         [(ngModel)]="password"
         type="password"
         required>
-      </md-form-field> <br/>
+      </mat-form-field> <br/>
       
-      <md-form-field class="form-input-field">
-        <input mdInput placeholder="Name"
+      <mat-form-field class="form-input-field">
+        <input matInput placeholder="Name"
         #emailModel="ngModel"
         name="displayName"
         [(ngModel)]="displayName"
         type="name"
         required>
-      </md-form-field>
+      </mat-form-field>
       <br />
       
-      <button md-raised-button color="accent"
+      <button mat-raised-button color="accent"
         [disabled]="loginForm.invalid"
         (click)="register(loginForm.valid)"
         type="submit">Register
       </button>
     </form>
-  </md-tab>
-</md-tab-group>
+  </mat-tab>
+</mat-tab-group>
