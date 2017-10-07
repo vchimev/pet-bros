@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Http, HttpModule } from '@angular/http';
-import { MatButtonModule, MatInputModule, MatSelectModule, MatFormFieldModule, MatTabsModule } from '@angular/material';
 // vendor dependencies
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -12,6 +11,7 @@ import { SHARED_MODULES, COMPONENT_DECLARATIONS } from './app.common';
 
 import { UserService } from './user.service';
 import { NavigationService } from 'app/navigation.service';
+import { AuthGuard } from './auth-service.guard';
 
 Config.PLATFORM_TARGET = Config.PLATFORMS.WEB;
 
@@ -35,11 +35,6 @@ export function createTranslateLoader(http: Http) {
       }
     }),
     ...SHARED_MODULES,
-    MatButtonModule,
-    MatInputModule,
-    MatSelectModule,
-    MatFormFieldModule,
-    MatTabsModule
   ],
   providers: [
     UserService,
