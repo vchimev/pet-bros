@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
+
+import { loginRoutes } from './login';
 
 /**
  * Define app module routes here, e.g., to lazily load a module
@@ -9,7 +10,7 @@ export const AppRoutes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
   {
     path: 'login',
-    component: LoginComponent
+    children: loginRoutes,
   },
   {
     path: 'home',

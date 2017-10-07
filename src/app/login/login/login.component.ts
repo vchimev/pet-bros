@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../user.service';
-import { NavigationService } from '../navigation.service';
+import { UserService } from '../../user.service';
+import { NavigationService } from '../../navigation.service';
 
 @Component({
   moduleId: module.id,
