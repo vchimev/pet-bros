@@ -6,16 +6,16 @@ import { MenuModule } from './menu/menu.module';
 import { SharedModule } from './shared';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
+import { LoginModule } from './login';
 
 export const SHARED_MODULES: any[] = [
   SharedModule,
   RouterModule,
   RouterModule.forRoot(AppRoutes), // { useHash: true }
-  MenuModule
+  MenuModule,
+  LoginModule
 ];
 
 export const COMPONENT_DECLARATIONS: any[] = [
-  AppComponent,
-  LoginComponent
+  AppComponent
 ];
