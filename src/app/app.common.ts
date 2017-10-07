@@ -1,6 +1,6 @@
 import { RouterModule } from './common';
 
-import { AppRoutes } from './app.routes';
+import { AppRoutes, guards } from './app.routes';
 
 import { MenuModule } from './menu/menu.module';
 import { SharedModule } from './shared';
@@ -18,4 +18,8 @@ export const SHARED_MODULES: any[] = [
 
 export const COMPONENT_DECLARATIONS: any[] = [
   AppComponent
+];
+
+export const PROVIDERS: any[] = [
+  ...guards
 ];

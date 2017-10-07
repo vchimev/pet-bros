@@ -72,9 +72,7 @@ export class UserService {
   public async register(email: string, password: string, displayName: string): Promise<string> {
     const key = await this.firebaseUserService.register(email, password);
 
-    this.firebaseUserService.updateUserDetails({
-      displayName: displayName
-    });
+    this.firebaseUserService.updateUserDetails({ displayName });
 
     return key;
   }
@@ -89,10 +87,6 @@ export class UserService {
 
   public updateUserDetails(options: FirebaseUserUpdateOptions) {
     return this.firebaseUserService.updateUserDetails(options);
-  }
-
-  public isLoggedIn() {
-    return (this._currentUser) ? true : false;
   }
 
   public addPetToFavourites(pet: Pet) {
@@ -120,9 +114,14 @@ export class UserService {
       });
     }
   }
+
   public removeShelterFromFavourites(key: string) {
     if (this.isLoggedIn()) {
       this._favouriteShelters.remove(key);
     }
+  }
+
+  private isLoggedIn(): boolean {
+    return (this._currentUser) ? true : false;
   }
 }

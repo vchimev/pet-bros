@@ -7,7 +7,11 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 // app
 import { AppComponent } from './app.component';
 import { Config } from './common/index';
-import { SHARED_MODULES, COMPONENT_DECLARATIONS } from './app.common';
+import {
+  SHARED_MODULES,
+  COMPONENT_DECLARATIONS,
+  PROVIDERS,
+ } from './app.common';
 
 import { UserService } from './user.service';
 import { NavigationService } from 'app/navigation.service';
@@ -37,7 +41,8 @@ export function createTranslateLoader(http: Http) {
   ],
   providers: [
     UserService,
-    NavigationService
+    NavigationService,
+    ...PROVIDERS
   ]
 })
 export class AppModule {}

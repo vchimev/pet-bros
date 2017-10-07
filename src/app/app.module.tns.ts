@@ -10,7 +10,11 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 // app
 import { Config } from './common/index';
 import { AppComponent } from './app.component';
-import { SHARED_MODULES, COMPONENT_DECLARATIONS } from './app.common';
+import {
+  SHARED_MODULES,
+  COMPONENT_DECLARATIONS,
+  PROVIDERS,
+} from './app.common';
 
 import { UserService } from './user.service';
 import { NavigationService } from './navigation.service';
@@ -44,7 +48,8 @@ export function createTranslateLoader(http: Http) {
     // Allows your {N} application to use lazy-loading
     { provide: NgModuleFactoryLoader, useClass: NSModuleFactoryLoader },
     UserService,
-    NavigationService
+    NavigationService,
+    ...PROVIDERS
   ],
   schemas: [
     NO_ERRORS_SCHEMA
