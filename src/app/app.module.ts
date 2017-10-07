@@ -11,7 +11,6 @@ import { SHARED_MODULES, COMPONENT_DECLARATIONS } from './app.common';
 
 import { UserService } from './user.service';
 import { NavigationService } from 'app/navigation.service';
-import { AuthGuard } from './auth-service.guard';
 
 Config.PLATFORM_TARGET = Config.PLATFORMS.WEB;
 
