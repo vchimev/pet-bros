@@ -1,10 +1,13 @@
 import { Routes } from '@angular/router';
 
 import { AuthGuard } from './auth-guards.service';
+import { UserResolver } from "./user-resolver.service";
+
 import { loginRoutes } from './login';
 
 export const guards = [
   AuthGuard,
+  UserResolver,
 ];
 
 const authGuards = {
@@ -21,6 +24,9 @@ export const AppRoutes: Routes = [
   {
     path: 'login',
     children: loginRoutes,
+    resolve: {
+      user: UserResolver,
+    },
   },
   {
     path: 'home',
